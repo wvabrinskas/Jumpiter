@@ -1,0 +1,671 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
+		91AC4D4825F807F000295955 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4725F807F000295955 /* GameScene.sks */; };
+		91AC4D4A25F807F000295955 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4925F807F000295955 /* Actions.sks */; };
+		91AC4D4C25F807F000295955 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4B25F807F000295955 /* GameScene.swift */; };
+		91AC4D4E25F807F000295955 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4D25F807F000295955 /* ViewController.swift */; };
+		91AC4D5025F807F300295955 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4F25F807F300295955 /* Assets.xcassets */; };
+		91AC4D5325F807F300295955 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D5125F807F300295955 /* Main.storyboard */; };
+		91AC4D5F25F807F300295955 /* JumpiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D5E25F807F300295955 /* JumpiterTests.swift */; };
+		91AC4D6A25F807F300295955 /* JumpiterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D6925F807F300295955 /* JumpiterUITests.swift */; };
+		91AC4D7C25F8084300295955 /* Neuron in Frameworks */ = {isa = PBXBuildFile; productRef = 91AC4D7B25F8084300295955 /* Neuron */; };
+		91AC4D8225F80A0400295955 /* Genetic in Frameworks */ = {isa = PBXBuildFile; productRef = 91AC4D8125F80A0400295955 /* Genetic */; };
+		91AC4D8725F80C3900295955 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D8625F80C3900295955 /* PlayerManager.swift */; };
+		91AC4D9025F80CB900295955 /* PhysicsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D8F25F80CB900295955 /* PhysicsManager.swift */; };
+		91AC4D9825F813A900295955 /* LevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D9725F813A900295955 /* LevelManager.swift */; };
+		91F5F8D625F82947007B67FE /* ObstacleHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F5F8D525F82947007B67FE /* ObstacleHolder.swift */; };
+		91F5F8DE25F86AC3007B67FE /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F5F8DD25F86AC3007B67FE /* GameState.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		91AC4D5B25F807F300295955 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91AC4D3A25F807F000295955 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91AC4D4125F807F000295955;
+			remoteInfo = Jumpiter;
+		};
+		91AC4D6625F807F300295955 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91AC4D3A25F807F000295955 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91AC4D4125F807F000295955;
+			remoteInfo = Jumpiter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91AC4D4525F807F000295955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		91AC4D4725F807F000295955 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		91AC4D4925F807F000295955 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		91AC4D4B25F807F000295955 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		91AC4D4D25F807F000295955 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		91AC4D4F25F807F300295955 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		91AC4D5225F807F300295955 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		91AC4D5425F807F300295955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91AC4D5525F807F300295955 /* Jumpiter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jumpiter.entitlements; sourceTree = "<group>"; };
+		91AC4D5A25F807F300295955 /* JumpiterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JumpiterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91AC4D5E25F807F300295955 /* JumpiterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpiterTests.swift; sourceTree = "<group>"; };
+		91AC4D6025F807F300295955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91AC4D6525F807F300295955 /* JumpiterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JumpiterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91AC4D6925F807F300295955 /* JumpiterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpiterUITests.swift; sourceTree = "<group>"; };
+		91AC4D6B25F807F300295955 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91AC4D8625F80C3900295955 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
+		91AC4D8F25F80CB900295955 /* PhysicsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsManager.swift; sourceTree = "<group>"; };
+		91AC4D9725F813A900295955 /* LevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelManager.swift; sourceTree = "<group>"; };
+		91F5F8D525F82947007B67FE /* ObstacleHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleHolder.swift; sourceTree = "<group>"; };
+		91F5F8DD25F86AC3007B67FE /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		91AC4D3F25F807F000295955 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91AC4D8225F80A0400295955 /* Genetic in Frameworks */,
+				91AC4D7C25F8084300295955 /* Neuron in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC4D5725F807F300295955 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC4D6225F807F300295955 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		91AC4D3925F807F000295955 = {
+			isa = PBXGroup;
+			children = (
+				91AC4D4425F807F000295955 /* Jumpiter */,
+				91AC4D5D25F807F300295955 /* JumpiterTests */,
+				91AC4D6825F807F300295955 /* JumpiterUITests */,
+				91AC4D4325F807F000295955 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		91AC4D4325F807F000295955 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				91AC4D4225F807F000295955 /* Jumpiter.app */,
+				91AC4D5A25F807F300295955 /* JumpiterTests.xctest */,
+				91AC4D6525F807F300295955 /* JumpiterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		91AC4D4425F807F000295955 /* Jumpiter */ = {
+			isa = PBXGroup;
+			children = (
+				91F5F8DD25F86AC3007B67FE /* GameState.swift */,
+				91F5F8D525F82947007B67FE /* ObstacleHolder.swift */,
+				91AC4D8E25F80CA800295955 /* Managers */,
+				91AC4D4525F807F000295955 /* AppDelegate.swift */,
+				91AC4D4725F807F000295955 /* GameScene.sks */,
+				91AC4D4925F807F000295955 /* Actions.sks */,
+				91AC4D4B25F807F000295955 /* GameScene.swift */,
+				91AC4D4D25F807F000295955 /* ViewController.swift */,
+				91AC4D4F25F807F300295955 /* Assets.xcassets */,
+				91AC4D5125F807F300295955 /* Main.storyboard */,
+				91AC4D5425F807F300295955 /* Info.plist */,
+				91AC4D5525F807F300295955 /* Jumpiter.entitlements */,
+			);
+			path = Jumpiter;
+			sourceTree = "<group>";
+		};
+		91AC4D5D25F807F300295955 /* JumpiterTests */ = {
+			isa = PBXGroup;
+			children = (
+				91AC4D5E25F807F300295955 /* JumpiterTests.swift */,
+				91AC4D6025F807F300295955 /* Info.plist */,
+			);
+			path = JumpiterTests;
+			sourceTree = "<group>";
+		};
+		91AC4D6825F807F300295955 /* JumpiterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				91AC4D6925F807F300295955 /* JumpiterUITests.swift */,
+				91AC4D6B25F807F300295955 /* Info.plist */,
+			);
+			path = JumpiterUITests;
+			sourceTree = "<group>";
+		};
+		91AC4D8E25F80CA800295955 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				91AC4D8625F80C3900295955 /* PlayerManager.swift */,
+				91AC4D8F25F80CB900295955 /* PhysicsManager.swift */,
+				91AC4D9725F813A900295955 /* LevelManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		91AC4D4125F807F000295955 /* Jumpiter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91AC4D6E25F807F300295955 /* Build configuration list for PBXNativeTarget "Jumpiter" */;
+			buildPhases = (
+				91AC4D3E25F807F000295955 /* Sources */,
+				91AC4D3F25F807F000295955 /* Frameworks */,
+				91AC4D4025F807F000295955 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Jumpiter;
+			packageProductDependencies = (
+				91AC4D7B25F8084300295955 /* Neuron */,
+				91AC4D8125F80A0400295955 /* Genetic */,
+			);
+			productName = Jumpiter;
+			productReference = 91AC4D4225F807F000295955 /* Jumpiter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		91AC4D5925F807F300295955 /* JumpiterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91AC4D7125F807F300295955 /* Build configuration list for PBXNativeTarget "JumpiterTests" */;
+			buildPhases = (
+				91AC4D5625F807F300295955 /* Sources */,
+				91AC4D5725F807F300295955 /* Frameworks */,
+				91AC4D5825F807F300295955 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91AC4D5C25F807F300295955 /* PBXTargetDependency */,
+			);
+			name = JumpiterTests;
+			productName = JumpiterTests;
+			productReference = 91AC4D5A25F807F300295955 /* JumpiterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		91AC4D6425F807F300295955 /* JumpiterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91AC4D7425F807F300295955 /* Build configuration list for PBXNativeTarget "JumpiterUITests" */;
+			buildPhases = (
+				91AC4D6125F807F300295955 /* Sources */,
+				91AC4D6225F807F300295955 /* Frameworks */,
+				91AC4D6325F807F300295955 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91AC4D6725F807F300295955 /* PBXTargetDependency */,
+			);
+			name = JumpiterUITests;
+			productName = JumpiterUITests;
+			productReference = 91AC4D6525F807F300295955 /* JumpiterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		91AC4D3A25F807F000295955 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					91AC4D4125F807F000295955 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					91AC4D5925F807F300295955 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 91AC4D4125F807F000295955;
+					};
+					91AC4D6425F807F300295955 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 91AC4D4125F807F000295955;
+					};
+				};
+			};
+			buildConfigurationList = 91AC4D3D25F807F000295955 /* Build configuration list for PBXProject "Jumpiter" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 91AC4D3925F807F000295955;
+			packageReferences = (
+				91AC4D7A25F8084300295955 /* XCRemoteSwiftPackageReference "Neuron" */,
+				91AC4D8025F80A0400295955 /* XCRemoteSwiftPackageReference "Genetic" */,
+			);
+			productRefGroup = 91AC4D4325F807F000295955 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				91AC4D4125F807F000295955 /* Jumpiter */,
+				91AC4D5925F807F300295955 /* JumpiterTests */,
+				91AC4D6425F807F300295955 /* JumpiterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		91AC4D4025F807F000295955 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91AC4D4825F807F000295955 /* GameScene.sks in Resources */,
+				91AC4D5025F807F300295955 /* Assets.xcassets in Resources */,
+				91AC4D4A25F807F000295955 /* Actions.sks in Resources */,
+				91AC4D5325F807F300295955 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC4D5825F807F300295955 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC4D6325F807F300295955 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		91AC4D3E25F807F000295955 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91F5F8DE25F86AC3007B67FE /* GameState.swift in Sources */,
+				91F5F8D625F82947007B67FE /* ObstacleHolder.swift in Sources */,
+				91AC4D4E25F807F000295955 /* ViewController.swift in Sources */,
+				91AC4D8725F80C3900295955 /* PlayerManager.swift in Sources */,
+				91AC4D4C25F807F000295955 /* GameScene.swift in Sources */,
+				91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */,
+				91AC4D9825F813A900295955 /* LevelManager.swift in Sources */,
+				91AC4D9025F80CB900295955 /* PhysicsManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC4D5625F807F300295955 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91AC4D5F25F807F300295955 /* JumpiterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91AC4D6125F807F300295955 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91AC4D6A25F807F300295955 /* JumpiterUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91AC4D5C25F807F300295955 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91AC4D4125F807F000295955 /* Jumpiter */;
+			targetProxy = 91AC4D5B25F807F300295955 /* PBXContainerItemProxy */;
+		};
+		91AC4D6725F807F300295955 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91AC4D4125F807F000295955 /* Jumpiter */;
+			targetProxy = 91AC4D6625F807F300295955 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		91AC4D5125F807F300295955 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91AC4D5225F807F300295955 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		91AC4D6C25F807F300295955 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		91AC4D6D25F807F300295955 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		91AC4D6F25F807F300295955 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jumpiter/Jumpiter.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 24H8222GR4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Jumpiter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wvabrinskas.Jumpiter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		91AC4D7025F807F300295955 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jumpiter/Jumpiter.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 24H8222GR4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = Jumpiter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wvabrinskas.Jumpiter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		91AC4D7225F807F300295955 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 24H8222GR4;
+				INFOPLIST_FILE = JumpiterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wvabrinskas.JumpiterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jumpiter.app/Contents/MacOS/Jumpiter";
+			};
+			name = Debug;
+		};
+		91AC4D7325F807F300295955 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 24H8222GR4;
+				INFOPLIST_FILE = JumpiterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wvabrinskas.JumpiterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jumpiter.app/Contents/MacOS/Jumpiter";
+			};
+			name = Release;
+		};
+		91AC4D7525F807F300295955 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 24H8222GR4;
+				INFOPLIST_FILE = JumpiterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wvabrinskas.JumpiterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Jumpiter;
+			};
+			name = Debug;
+		};
+		91AC4D7625F807F300295955 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 24H8222GR4;
+				INFOPLIST_FILE = JumpiterUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wvabrinskas.JumpiterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Jumpiter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		91AC4D3D25F807F000295955 /* Build configuration list for PBXProject "Jumpiter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91AC4D6C25F807F300295955 /* Debug */,
+				91AC4D6D25F807F300295955 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91AC4D6E25F807F300295955 /* Build configuration list for PBXNativeTarget "Jumpiter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91AC4D6F25F807F300295955 /* Debug */,
+				91AC4D7025F807F300295955 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91AC4D7125F807F300295955 /* Build configuration list for PBXNativeTarget "JumpiterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91AC4D7225F807F300295955 /* Debug */,
+				91AC4D7325F807F300295955 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91AC4D7425F807F300295955 /* Build configuration list for PBXNativeTarget "JumpiterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91AC4D7525F807F300295955 /* Debug */,
+				91AC4D7625F807F300295955 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		91AC4D7A25F8084300295955 /* XCRemoteSwiftPackageReference "Neuron" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:wvabrinskas/Neuron.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
+		91AC4D8025F80A0400295955 /* XCRemoteSwiftPackageReference "Genetic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:wvabrinskas/Genetic.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		91AC4D7B25F8084300295955 /* Neuron */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91AC4D7A25F8084300295955 /* XCRemoteSwiftPackageReference "Neuron" */;
+			productName = Neuron;
+		};
+		91AC4D8125F80A0400295955 /* Genetic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91AC4D8025F80A0400295955 /* XCRemoteSwiftPackageReference "Genetic" */;
+			productName = Genetic;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 91AC4D3A25F807F000295955 /* Project object */;
+}
