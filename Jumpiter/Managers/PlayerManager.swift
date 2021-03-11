@@ -14,7 +14,9 @@ public class PlayerManager: PhysicsManager {
   public var isDead: Bool = false {
     didSet {
       if isDead {
-        player.removeFromParent()
+        DispatchQueue.main.async {
+          self.player.removeFromParent()
+        }
       }
     }
   }
@@ -48,7 +50,7 @@ public class PlayerManager: PhysicsManager {
     scene?.addChild(player)
     
     if let scene = scene {
-      player.position = CGPoint(x: scene.frame.minX * 0.70, y: 0)
+      player.position = CGPoint(x: scene.frame.minX * 0.3, y: 0)
     }
   }
   

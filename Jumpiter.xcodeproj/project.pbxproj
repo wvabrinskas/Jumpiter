@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912297A825F996FD00BE5DCD /* GameBrainManager.swift */; };
 		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
 		91AC4D4825F807F000295955 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4725F807F000295955 /* GameScene.sks */; };
 		91AC4D4A25F807F000295955 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4925F807F000295955 /* Actions.sks */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		912297A825F996FD00BE5DCD /* GameBrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrainManager.swift; sourceTree = "<group>"; };
 		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AC4D4525F807F000295955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91AC4D4725F807F000295955 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				91AC4D8625F80C3900295955 /* PlayerManager.swift */,
 				91AC4D8F25F80CB900295955 /* PhysicsManager.swift */,
 				91AC4D9725F813A900295955 /* LevelManager.swift */,
+				912297A825F996FD00BE5DCD /* GameBrainManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				91AC4D4E25F807F000295955 /* ViewController.swift in Sources */,
 				91AC4D8725F80C3900295955 /* PlayerManager.swift in Sources */,
 				91AC4D4C25F807F000295955 /* GameScene.swift in Sources */,
+				912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */,
 				91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */,
 				91AC4D9825F813A900295955 /* LevelManager.swift in Sources */,
 				91AC4D9025F80CB900295955 /* PhysicsManager.swift in Sources */,

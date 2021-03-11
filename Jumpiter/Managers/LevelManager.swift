@@ -43,12 +43,20 @@ public class LevelManager: PhysicsManager {
   private func addObstacle() {
     if let scene = scene {
       let obstacle = ObstacleHolder(scene: scene,
-                                    origin: CGPoint(x: (scene.frame.maxX - 50),
+                                    origin: CGPoint(x: (scene.frame.maxX),
                                                     y: ground.frame.maxY))
       
       obstacles.append(obstacle)
       scene.addChild(obstacle.obstacle)
     }
+  }
+  
+  public func proximityTo(_ obj: SKNode?) -> ObstacleHolder? {
+    guard let player = obj else {
+      return nil
+    }
+    let first = self.obstacles.first(where: { $0.obstacle.position.x > player.position.x })
+    return first
   }
   
   public func didHit(_ obj: SKNode?) -> Bool {

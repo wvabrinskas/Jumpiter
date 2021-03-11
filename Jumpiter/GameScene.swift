@@ -48,9 +48,9 @@ class GameScene: SKScene, PhysicsManager {
       self.reset()
     })
     
-    self.gameState.setPlayers(num: 2)
+    self.gameState.setPlayers(num: 1)
   }
-
+  
   override func didMove(to view: SKView) {
     super.didMove(to: view)
     
@@ -65,7 +65,7 @@ class GameScene: SKScene, PhysicsManager {
   override func keyDown(with event: NSEvent) {
     switch event.keyCode {
     case Keys.space.rawValue, Keys.up.rawValue: //space
-      self.jump(at: 0)
+      self.jump()
     case Keys.r.rawValue:
       self.reset()
     default:
@@ -89,9 +89,10 @@ class GameScene: SKScene, PhysicsManager {
       let label = SKLabelNode(text: "Player \(i + 1): \(manager.score)")
       self.scoreLabels.append(label)
       label.fontSize = 22
-      label.fontName = "Helvetica Nueue Bold"
-      label.position = CGPoint(x: self.frame.minX + 80, y: (self.frame.maxY - 30) - spacing * CGFloat(i))
+      label.fontName = "Helvetica Neue Bold"
+      label.position = CGPoint(x: self.frame.minX + 10, y: (self.frame.maxY - 30) - spacing * CGFloat(i))
       label.fontColor = manager.color
+      label.horizontalAlignmentMode = .left
       self.addChild(label)
       i += 1
     }
@@ -128,7 +129,8 @@ class GameScene: SKScene, PhysicsManager {
     } else {
       
       //have each manager jump
-      self.players.forEach { (manager) in
+      DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
+        let manager = self.players[i]
         guard let body = manager.player.physicsBody,
               let groundBody = self.levelManager.ground.physicsBody,
               manager.isDead == false else {
@@ -148,8 +150,8 @@ class GameScene: SKScene, PhysicsManager {
     var allPlayersDead = true
     
     if !self.gameState.gameDone {
-      
-      self.players.forEach { (manager) in
+      DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
+        let manager = self.players[i]
         if self.levelManager.didHit(manager.player) {
           manager.isDead = true
         } else {
@@ -157,6 +159,13 @@ class GameScene: SKScene, PhysicsManager {
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
               self.lastUpdateTime != round(currentTime) &&
               !manager.isDead {
+            
+            if let closest = self.levelManager.proximityTo(manager.player),
+               closest != gameState.nearestObstacle {
+    
+              gameState.nearestObstacle =  closest
+            }
+            
             manager.updateScore()
           }
         }

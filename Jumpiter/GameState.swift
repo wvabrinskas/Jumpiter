@@ -13,6 +13,8 @@ class GameState: ObservableObject {
   @Published var gameDone: Bool = false
   @Published var players: [PlayerManager] = []
   
+  public var nearestObstacle: ObstacleHolder?
+  
   func setGameStatus(done: Bool) {
     gameDone = done
   }
@@ -25,4 +27,6 @@ class GameState: ObservableObject {
     }
     self.players = newPlayers
   }
+  
+  
 }

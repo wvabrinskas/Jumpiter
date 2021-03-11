@@ -9,16 +9,18 @@ import Foundation
 import SpriteKit
 
 
-public struct ObstacleHolder: Identifiable, PhysicsManager {
+public struct ObstacleHolder: Identifiable, Equatable, PhysicsManager {
   public var id: UUID = UUID()
   
   public var obstacle: SKNode
+  public var height: CGFloat
   private var minX: CGFloat?
   
   public init(scene: SKScene, origin: CGPoint) {
     minX = -scene.frame.width
     
     let height = CGFloat.random(in: 20...200)
+    self.height = height
 
     let newObstacle = SKShapeNode(rectOf: CGSize(width: 50,
                                                  height: height))
