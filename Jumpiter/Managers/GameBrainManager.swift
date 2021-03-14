@@ -41,7 +41,6 @@ class GameBrainManager {
       }
       
       let player = self.state.players[index]
-      let jumps = max(1, player.numOfJumps)
       
       let result: Double = Double(player.score)
       
@@ -169,7 +168,6 @@ class GameBrainManager {
         let inputs: [Float] = [mappedPos,
                                mappedHeight]
         
-       // print(inputs)
         let brain = brains[i]
         let results = brain.feed(input: inputs)
         //only one output
