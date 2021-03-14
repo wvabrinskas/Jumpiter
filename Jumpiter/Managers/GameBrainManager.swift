@@ -29,7 +29,7 @@ class GameBrainManager {
   public weak var delegate: GameBrainManagerDelegate?
   
   private lazy var gene: Genetic = {
-    Genetic<Float>(mutationFactor: 50, numberOfChildren: numberOfChildren)
+    Genetic<Float>(mutationFactor: 200, numberOfChildren: numberOfChildren)
   }()
 
   init(_ delegate: GameBrainManagerDelegate? = nil) {
