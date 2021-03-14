@@ -18,7 +18,7 @@ class GameState: ObservableObject {
   func setGameStatus(done: Bool) {
     gameDone = done
   }
-  
+
   func setPlayers(num: Int) {
     var newPlayers: [PlayerManager] = []
     for _ in 0..<num {
@@ -27,6 +27,5 @@ class GameState: ObservableObject {
     }
     self.players = newPlayers
   }
-  
   
 }

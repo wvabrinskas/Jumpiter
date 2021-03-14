@@ -22,12 +22,13 @@ public class PlayerManager: PhysicsManager {
   }
   public var score: Int = 0
   public var color: NSColor = .white
+  public var numOfJumps: Int = 0
   
   public init() {
     self.player = SKShapeNode(rectOf: CGSize(width: 40, height: 40), cornerRadius: 15)
     self.player.fillColor = self.randomColor()
     self.color = self.player.fillColor
-    self.player.strokeColor = .clear
+    self.player.strokeColor = .white
     
     self.addPhysics(to: player, mass: 1, restitution: 0.0)
     self.player.physicsBody?.categoryBitMask = 0x00000001
@@ -43,6 +44,7 @@ public class PlayerManager: PhysicsManager {
   }
   
   public func jump() {
+    numOfJumps += 1
     self.applyForce(force: 1700, direction: .up, to: self.player)
   }
   
@@ -58,7 +60,9 @@ public class PlayerManager: PhysicsManager {
     score += 1
   }
   
-  public func resetScore() {
+  public func reset() {
     score = 0
+    isDead = false
+    numOfJumps = 0
   }
 }

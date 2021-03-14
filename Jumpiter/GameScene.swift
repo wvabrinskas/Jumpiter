@@ -12,10 +12,14 @@ import Combine
 class GameScene: SKScene, PhysicsManager {
   private let gameState: GameState = .shared
   private var scoreLabels: [SKLabelNode] = []
+  private var highScoreLabel: SKLabelNode?
+  private var generationLabel: SKLabelNode?
+
   private var lastUpdateTime : TimeInterval = 0
   
   private var players: [PlayerManager] = []
   private var playerCancellable: AnyCancellable?
+  private let brainManager = GameBrainManager()
   
   private lazy var levelManager: LevelManager = {
     var size: CGSize = .zero
@@ -48,7 +52,11 @@ class GameScene: SKScene, PhysicsManager {
       self.reset()
     })
     
-    self.gameState.setPlayers(num: 1)
+    brainManager.setup()
+    brainManager.delegate = self
+    
+    highScoreLabel = self.childNode(withName: "\\gen") as? SKLabelNode
+    generationLabel = self.childNode(withName: "\\generation") as? SKLabelNode
   }
   
   override func didMove(to view: SKView) {
@@ -74,6 +82,11 @@ class GameScene: SKScene, PhysicsManager {
   }
   
   private func setupLabels() {
+    
+    guard self.players.count <= 20 else {
+      return
+    }
+    
     guard self.scoreLabels.count == 0 else {
       var i = 0
       self.players.forEach { (manager) in
@@ -98,15 +111,15 @@ class GameScene: SKScene, PhysicsManager {
     }
   }
   
-  private func reset() {
+  internal func reset() {
     self.players.forEach { (manager) in
-      manager.resetScore()
-      manager.isDead = false
+      manager.reset()
       if manager.player.scene == nil {
         self.addChild(manager.player)
+        manager.player.position = CGPoint(x: self.frame.minX * 0.3, y: 0)
       }
     }
-    self.gameState.gameDone = false
+    self.gameState.setGameStatus(done: false)
     self.levelManager.reset()
   }
   
@@ -150,35 +163,52 @@ class GameScene: SKScene, PhysicsManager {
     var allPlayersDead = true
     
     if !self.gameState.gameDone {
-      DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
+      for i in 0..<self.players.count {
         let manager = self.players[i]
         if self.levelManager.didHit(manager.player) {
           manager.isDead = true
         } else {
-          allPlayersDead = false
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
               self.lastUpdateTime != round(currentTime) &&
               !manager.isDead {
             
             if let closest = self.levelManager.proximityTo(manager.player),
                closest != gameState.nearestObstacle {
-    
-              gameState.nearestObstacle =  closest
+              
+              gameState.nearestObstacle = closest
             }
             
             manager.updateScore()
           }
         }
+        if !manager.isDead {
+          allPlayersDead = false
+        }
+      }
+      
+      if !allPlayersDead {
+        self.brainManager.feed(self.frame)
+        self.levelManager.update()
+        self.setupLabels()
+      } else {
+        self.gameState.setGameStatus(done: true)
       }
     }
-    
-    if !allPlayersDead {
-      self.levelManager.update()
-      self.setupLabels()
-    } else {
-      self.gameState.gameDone = true
-    }
-    
+   
     self.lastUpdateTime = round(currentTime)
+  }
+}
+
+extension GameScene: GameBrainManagerDelegate {
+  func jump(index: Int) {
+    self.jump(at: index)
+  }
+  
+  func resetGame(_ highestScore: Double, _ generation: Int) {
+    DispatchQueue.main.async {
+      self.reset()
+      self.highScoreLabel?.text = "\(highestScore)"
+      self.generationLabel?.text = "\(generation)"
+    }
   }
 }

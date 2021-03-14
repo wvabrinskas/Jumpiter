@@ -55,7 +55,19 @@ public class LevelManager: PhysicsManager {
     guard let player = obj else {
       return nil
     }
-    let first = self.obstacles.first(where: { $0.obstacle.position.x > player.position.x })
+    
+    let adjustedPlayerPosition = player.position.x - (player.frame.size.width * 2)
+    
+    let first = self.obstacles.first { (obst) -> Bool in
+      if obst.obstacle.position.x >= adjustedPlayerPosition && obst.obstacle.position.x > 0 {
+        (obst.obstacle as? SKShapeNode)?.fillColor = .green
+        return true
+      } else {
+        (obst.obstacle as? SKShapeNode)?.fillColor = .red
+        return false
+      }
+    }
+
     return first
   }
   

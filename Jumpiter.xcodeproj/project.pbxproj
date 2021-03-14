@@ -645,15 +645,15 @@
 			repositoryURL = "git@github.com:wvabrinskas/Neuron.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.1;
+				minimumVersion = 1.3.4;
 			};
 		};
 		91AC4D8025F80A0400295955 /* XCRemoteSwiftPackageReference "Genetic" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:wvabrinskas/Genetic.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

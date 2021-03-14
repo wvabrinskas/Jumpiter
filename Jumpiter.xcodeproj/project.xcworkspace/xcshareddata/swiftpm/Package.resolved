@@ -5,9 +5,9 @@
         "package": "Genetic",
         "repositoryURL": "git@github.com:wvabrinskas/Genetic.git",
         "state": {
-          "branch": null,
-          "revision": "b55defe729ce4ad7b91ce0ffe65748ade5768564",
-          "version": "1.0.1"
+          "branch": "master",
+          "revision": "64bb3dce3d742ab09db2667c5dab446d33128283",
+          "version": null
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "git@github.com:wvabrinskas/Neuron.git",
         "state": {
           "branch": null,
-          "revision": "68fb51a9aa7a1fe761f3064c390d94a67f47c70e",
-          "version": "1.3.1"
+          "revision": "28062fd278c9e6f95800928d05f7bd4ab3d967c8",
+          "version": "1.3.4"
         }
       }
     ]
