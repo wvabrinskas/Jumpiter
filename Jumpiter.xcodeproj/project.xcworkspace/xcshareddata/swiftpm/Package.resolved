@@ -5,9 +5,9 @@
         "package": "Genetic",
         "repositoryURL": "git@github.com:wvabrinskas/Genetic.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "64bb3dce3d742ab09db2667c5dab446d33128283",
-          "version": null
+          "version": "1.0.5"
         }
       },
       {
