@@ -91,6 +91,8 @@ class GameScene: SKScene, PhysicsManager {
   }
   
   private func setupLabels() {
+    self.highScoreLabel?.text = "\(self.gameState.highestScore)"
+
     guard self.players.count <= 20 else {
       return
     }
@@ -222,7 +224,6 @@ extension GameScene: GameBrainManagerDelegate {
   func resetGame(_ highestScore: Double, _ generation: Int) {
     DispatchQueue.main.async {
       self.reset()
-      self.highScoreLabel?.text = "\(highestScore)"
       self.generationLabel?.text = "\(generation)"
     }
   }

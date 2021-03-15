@@ -56,7 +56,7 @@ public class LevelManager: PhysicsManager {
     
     let first = self.obstacles.first { (obst) -> Bool in
       let obstaclePos = obst.obstacle.position.x + obst.obstacle.frame.size.width
-      if obstaclePos >= adjustedPlayerPosition && obstaclePos > 0 {
+      if obstaclePos > adjustedPlayerPosition {
         (obst.obstacle as? SKShapeNode)?.fillColor = .green
         return true
       } else {

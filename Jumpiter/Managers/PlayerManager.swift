@@ -51,13 +51,12 @@ public class PlayerManager: PhysicsManager {
   public func setup(in scene: SKScene?) {
     scene?.addChild(player)
     
-    if let scene = scene {
-      player.position = CGPoint(x: GameState.shared.playerStartPosition , y: 0)
-    }
+    player.position = CGPoint(x: GameState.shared.playerStartPosition , y: 0)
   }
   
   public func updateScore() {
     score += 1
+    GameState.shared.setHighestScore(score: score)
   }
   
   public func reset() {

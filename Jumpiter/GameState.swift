@@ -10,6 +10,7 @@ import Combine
 
 class GameState: ObservableObject {
   public static let shared = GameState()
+  public var highestScore: Int = 0
   @Published var gameDone: Bool = false
   @Published var players: [PlayerManager] = []
   public var playerStartPosition: CGFloat = 0
@@ -18,6 +19,10 @@ class GameState: ObservableObject {
   
   func setGameStatus(done: Bool) {
     gameDone = done
+  }
+  
+  func setHighestScore(score: Int) {
+    highestScore = max(score, highestScore)
   }
 
   func setPlayers(num: Int) {
