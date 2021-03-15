@@ -41,12 +41,13 @@ class GameBrainManager {
       }
       
       let player = self.state.players[index]
+      let jumps = max(1, player.numOfJumps)
       
       let result: Double = Double(player.score)
       
       let powerResult = pow(result, self.rankingExponent)
       
-      //print(powerResult)
+      //print(powerResult)s
       return powerResult
     }
     
@@ -130,7 +131,7 @@ class GameBrainManager {
   }
   
   private func getBrain() -> Brain {
-    let bias: Float = 0
+    let bias: Float = 0.01
     
     let brain = Brain(learningRate: 0,
                       epochs: 200,
@@ -161,9 +162,10 @@ class GameBrainManager {
       
       for i in 0..<brains.count {
         let player = self.state.players[i]
-        let playerPosX = player.player.position.x
+        let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
+        let obstaclePos = obstacle.obstacle.position.x - (obstacle.obstacle.frame.size.width / 2)
                 
-        let mappedPos = Float(obstacle.obstacle.position.x).map(from: playerPosX...frame.maxX, to: 0...1)
+        let mappedPos = Float(obstaclePos).map(from: playerPosX...frame.maxX, to: 0...1)
         let mappedHeight = Float(obstacle.height).map(from: 0...200, to: 0...1)
         let inputs: [Float] = [mappedPos,
                                mappedHeight]

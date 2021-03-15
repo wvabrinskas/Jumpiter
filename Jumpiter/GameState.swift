@@ -12,6 +12,7 @@ class GameState: ObservableObject {
   public static let shared = GameState()
   @Published var gameDone: Bool = false
   @Published var players: [PlayerManager] = []
+  public var playerStartPosition: CGFloat = 0
   
   public var nearestObstacle: ObstacleHolder?
   

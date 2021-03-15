@@ -14,12 +14,14 @@ class GameScene: SKScene, PhysicsManager {
   private var scoreLabels: [SKLabelNode] = []
   private var highScoreLabel: SKLabelNode?
   private var generationLabel: SKLabelNode?
+  private var aliveLabel: SKLabelNode?
 
   private var lastUpdateTime : TimeInterval = 0
   
   private var players: [PlayerManager] = []
   private var playerCancellable: AnyCancellable?
   private let brainManager = GameBrainManager()
+  private let aiControlled = true
   
   private lazy var levelManager: LevelManager = {
     var size: CGSize = .zero
@@ -39,6 +41,8 @@ class GameScene: SKScene, PhysicsManager {
   }
   
   override func sceneDidLoad() {
+    self.gameState.playerStartPosition = self.frame.minX * 0.3
+
     self.lastUpdateTime = 0
     
     self.playerCancellable = self.gameState.$players.sink(receiveValue: { (value) in
@@ -57,13 +61,14 @@ class GameScene: SKScene, PhysicsManager {
     
     highScoreLabel = self.childNode(withName: "\\gen") as? SKLabelNode
     generationLabel = self.childNode(withName: "\\generation") as? SKLabelNode
+    aliveLabel = self.childNode(withName: "\\galive") as? SKLabelNode
   }
   
   override func didMove(to view: SKView) {
     super.didMove(to: view)
     
     physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-    self.startPhysics(world: self.physicsWorld, gravity: -25)
+    self.startPhysics(world: self.physicsWorld, gravity: -27)
     
     self.levelManager.setup()
 
@@ -71,6 +76,10 @@ class GameScene: SKScene, PhysicsManager {
   }
   
   override func keyDown(with event: NSEvent) {
+    guard !aiControlled else {
+      return
+    }
+    
     switch event.keyCode {
     case Keys.space.rawValue, Keys.up.rawValue: //space
       self.jump()
@@ -82,7 +91,6 @@ class GameScene: SKScene, PhysicsManager {
   }
   
   private func setupLabels() {
-    
     guard self.players.count <= 20 else {
       return
     }
@@ -116,7 +124,7 @@ class GameScene: SKScene, PhysicsManager {
       manager.reset()
       if manager.player.scene == nil {
         self.addChild(manager.player)
-        manager.player.position = CGPoint(x: self.frame.minX * 0.3, y: 0)
+        manager.player.position = CGPoint(x: gameState.playerStartPosition , y: 0)
       }
     }
     self.gameState.setGameStatus(done: false)
@@ -156,6 +164,12 @@ class GameScene: SKScene, PhysicsManager {
     }
   }
   
+  private func updateAliveLabel() {
+    let playersCount = players.filter({ !$0.isDead })
+    
+    self.aliveLabel?.text = "\(playersCount.count)"
+  }
+  
   override func update(_ currentTime: TimeInterval) {
     // Called before each frame is rendered
 
@@ -163,7 +177,14 @@ class GameScene: SKScene, PhysicsManager {
     var allPlayersDead = true
     
     if !self.gameState.gameDone {
-      for i in 0..<self.players.count {
+      
+      if let closest = self.levelManager.nearestObstacle(),
+         closest != gameState.nearestObstacle {
+        
+        gameState.nearestObstacle = closest
+      }
+      
+      DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
         let manager = self.players[i]
         if self.levelManager.didHit(manager.player) {
           manager.isDead = true
@@ -171,13 +192,6 @@ class GameScene: SKScene, PhysicsManager {
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
               self.lastUpdateTime != round(currentTime) &&
               !manager.isDead {
-            
-            if let closest = self.levelManager.proximityTo(manager.player),
-               closest != gameState.nearestObstacle {
-              
-              gameState.nearestObstacle = closest
-            }
-            
             manager.updateScore()
           }
         }
@@ -185,11 +199,12 @@ class GameScene: SKScene, PhysicsManager {
           allPlayersDead = false
         }
       }
-      
+
       if !allPlayersDead {
         self.brainManager.feed(self.frame)
         self.levelManager.update()
         self.setupLabels()
+        self.updateAliveLabel()
       } else {
         self.gameState.setGameStatus(done: true)
       }

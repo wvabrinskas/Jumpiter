@@ -52,7 +52,7 @@ public class PlayerManager: PhysicsManager {
     scene?.addChild(player)
     
     if let scene = scene {
-      player.position = CGPoint(x: scene.frame.minX * 0.3, y: 0)
+      player.position = CGPoint(x: GameState.shared.playerStartPosition , y: 0)
     }
   }
   

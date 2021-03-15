@@ -51,15 +51,12 @@ public class LevelManager: PhysicsManager {
     }
   }
   
-  public func proximityTo(_ obj: SKNode?) -> ObstacleHolder? {
-    guard let player = obj else {
-      return nil
-    }
-    
-    let adjustedPlayerPosition = player.position.x - (player.frame.size.width * 2)
+  public func nearestObstacle() -> ObstacleHolder? {
+    let adjustedPlayerPosition = GameState.shared.playerStartPosition
     
     let first = self.obstacles.first { (obst) -> Bool in
-      if obst.obstacle.position.x >= adjustedPlayerPosition && obst.obstacle.position.x > 0 {
+      let obstaclePos = obst.obstacle.position.x + obst.obstacle.frame.size.width
+      if obstaclePos >= adjustedPlayerPosition && obstaclePos > 0 {
         (obst.obstacle as? SKShapeNode)?.fillColor = .green
         return true
       } else {
