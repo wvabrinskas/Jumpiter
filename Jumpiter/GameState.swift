@@ -26,7 +26,7 @@ public class GameState: ObservableObject {
   public func getDistanceRange() -> ClosedRange<CGFloat> {
     let currentScore = self.currentGameScore
     
-    if currentScore % 20 == 0 && minStartingDistance > 220 && maxStartingDistance > 270 {
+    if currentScore % 20 == 0 && minStartingDistance > 230 && maxStartingDistance > 270 {
       self.minStartingDistance -= 1
       self.maxStartingDistance -= 1
     }
@@ -37,9 +37,9 @@ public class GameState: ObservableObject {
   public func getHeightRange() -> ClosedRange<CGFloat> {
     let currentScore = self.currentGameScore
     
-    if currentScore % 10 == 0 && minObstacleHeight < 150 && maxObstacleHeight < 200 {
-      self.minObstacleHeight += 5
-      self.maxObstacleHeight += 5
+    if currentScore % 5 == 0 && minObstacleHeight < 150 && maxObstacleHeight < 200 {
+      self.minObstacleHeight += 10
+      self.maxObstacleHeight += 10
     }
         
     return minObstacleHeight...maxObstacleHeight
