@@ -652,8 +652,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:wvabrinskas/Genetic.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
