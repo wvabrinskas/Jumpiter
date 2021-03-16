@@ -207,6 +207,7 @@ class GameScene: SKScene, PhysicsManager {
         self.levelManager.update()
         self.setupLabels()
         self.updateAliveLabel()
+        self.gameState.updateCurrentScore()
       } else {
         self.gameState.setGameStatus(done: true)
       }

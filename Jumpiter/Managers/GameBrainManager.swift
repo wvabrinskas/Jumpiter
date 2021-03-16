@@ -41,7 +41,6 @@ class GameBrainManager {
       }
       
       let player = self.state.players[index]
-      let jumps = max(1, player.numOfJumps)
       
       let result: Double = Double(player.score)
       
