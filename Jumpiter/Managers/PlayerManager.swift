@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 public class PlayerManager: PhysicsManager {
-  public var player: SKShapeNode
+  public var player: SKSpriteNode
   public var isDead: Bool = false {
     didSet {
       if isDead {
@@ -23,12 +23,22 @@ public class PlayerManager: PhysicsManager {
   public var score: Int = 0
   public var color: NSColor = .white
   public var numOfJumps: Int = 0
-  
+  private var playerFrames: [SKTexture] = []
+
   public init() {
-    self.player = SKShapeNode(rectOf: CGSize(width: 40, height: 40), cornerRadius: 15)
-    self.player.fillColor = self.randomColor()
-    self.color = self.player.fillColor
-    self.player.strokeColor = .white
+    let bearAnimatedAtlas = SKTextureAtlas(named: "player")
+    var walkFrames: [SKTexture] = []
+
+    let numImages = bearAnimatedAtlas.textureNames.count
+    for i in 1...numImages {
+      let bearTextureName = "player_\(i)"
+      walkFrames.append(bearAnimatedAtlas.textureNamed(bearTextureName))
+    }
+    
+    self.playerFrames = walkFrames
+    
+    let firstFrameTexture = playerFrames[0]
+    self.player = SKSpriteNode(texture: firstFrameTexture)
     
     self.addPhysics(to: player, mass: 1, restitution: 0.0)
     self.player.physicsBody?.categoryBitMask = 0x00000001

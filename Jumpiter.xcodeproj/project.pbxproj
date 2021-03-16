@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912297A825F996FD00BE5DCD /* GameBrainManager.swift */; };
+		918E252026016E8B00C65CA0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 918E251F26016E8B00C65CA0 /* player.atlas */; };
 		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
 		91AC4D4825F807F000295955 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4725F807F000295955 /* GameScene.sks */; };
 		91AC4D4A25F807F000295955 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4925F807F000295955 /* Actions.sks */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		912297A825F996FD00BE5DCD /* GameBrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrainManager.swift; sourceTree = "<group>"; };
+		918E251F26016E8B00C65CA0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AC4D4525F807F000295955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91AC4D4725F807F000295955 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		91AC4D4425F807F000295955 /* Jumpiter */ = {
 			isa = PBXGroup;
 			children = (
+				918E251F26016E8B00C65CA0 /* player.atlas */,
 				91F5F8DD25F86AC3007B67FE /* GameState.swift */,
 				91F5F8D525F82947007B67FE /* ObstacleHolder.swift */,
 				91AC4D8E25F80CA800295955 /* Managers */,
@@ -276,6 +279,7 @@
 			files = (
 				91AC4D4825F807F000295955 /* GameScene.sks in Resources */,
 				91AC4D5025F807F300295955 /* Assets.xcassets in Resources */,
+				918E252026016E8B00C65CA0 /* player.atlas in Resources */,
 				91AC4D4A25F807F000295955 /* Actions.sks in Resources */,
 				91AC4D5325F807F300295955 /* Main.storyboard in Resources */,
 			);
