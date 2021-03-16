@@ -19,7 +19,7 @@ public struct ObstacleHolder: Identifiable, Equatable, PhysicsManager {
   public init(scene: SKScene, origin: CGPoint) {
     minX = -scene.frame.width
     
-    let height = CGFloat.random(in: GameState.shared.getGameDifficulty().getObjectHeightRange())
+    let height = CGFloat.random(in: GameState.shared.getHeightRange())
     self.height = height
 
     let newObstacle = SKShapeNode(rectOf: CGSize(width: 50,

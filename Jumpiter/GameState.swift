@@ -14,38 +14,44 @@ public class GameState: ObservableObject {
   public var currentGameScore: Int = 0
   public var playerStartPosition: CGFloat = 0
   public var nearestObstacle: ObstacleHolder?
+  
+  private var minStartingDistance: CGFloat = 450
+  private var maxStartingDistance: CGFloat = 550
+  private var minObstacleHeight: CGFloat = 50
+  private var maxObstacleHeight: CGFloat = 100
+  
   @Published public var gameDone: Bool = false
   @Published public var players: [PlayerManager] = []
   
-  public enum GameDifficulty {
-    case easy, medium, hard
+  public func getDistanceRange() -> ClosedRange<CGFloat> {
+    let currentScore = self.currentGameScore
     
-    public func getDistanceRange() -> ClosedRange<CGFloat> {
-      switch self {
-      case .easy:
-        return 450...550
-      case .medium:
-        return 350...450
-      case .hard:
-        return 210...250
-      }
+    if currentScore % 20 == 0 && minStartingDistance > 220 && maxStartingDistance > 270 {
+      self.minStartingDistance -= 1
+      self.maxStartingDistance -= 1
     }
+        
+    return minStartingDistance...maxStartingDistance
+  }
+  
+  public func getHeightRange() -> ClosedRange<CGFloat> {
+    let currentScore = self.currentGameScore
     
-    public func getObjectHeightRange() -> ClosedRange<CGFloat> {
-      switch self {
-      case .easy:
-        return 50...100
-      case .medium:
-        return 100...150
-      case .hard:
-        return 170...200
-      }
+    if currentScore % 10 == 0 && minObstacleHeight < 150 && maxObstacleHeight < 200 {
+      self.minObstacleHeight += 5
+      self.maxObstacleHeight += 5
     }
+        
+    return minObstacleHeight...maxObstacleHeight
   }
   
   public func setGameStatus(done: Bool) {
     if gameDone {
       self.currentGameScore = 0
+      minStartingDistance = 450
+      maxStartingDistance = 550
+      minObstacleHeight = 50
+      maxObstacleHeight = 100
     }
     gameDone = done
   }
@@ -68,14 +74,5 @@ public class GameState: ObservableObject {
     }
     self.players = newPlayers
   }
-  
-  public func getGameDifficulty() -> GameDifficulty {
-    if self.currentGameScore > 100 {
-      return .hard
-    } else if self.currentGameScore > 50 {
-      return .medium
-    } else {
-      return .easy
-    }
-  }
+
 }

@@ -11,6 +11,8 @@ import GameplayKit
 
 public struct Level {
   var groundSize: CGSize
+  let minStartingDistance = 450
+  let maxStartingDistance = 550
 }
 
 public class LevelManager: PhysicsManager {
@@ -85,7 +87,7 @@ public class LevelManager: PhysicsManager {
   }
   
   public func update() {
-    let distance = CGFloat.random(in: GameState.shared.getGameDifficulty().getDistanceRange())
+    let distance = CGFloat.random(in: GameState.shared.getDistanceRange())
 
     if let last = self.obstacles.last, let scene = last.obstacle.scene {
       if scene.frame.maxX - abs(last.obstacle.position.x) > distance {
