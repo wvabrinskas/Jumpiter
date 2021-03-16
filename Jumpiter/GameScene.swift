@@ -14,6 +14,7 @@ class GameScene: SKScene, PhysicsManager {
   private var scoreLabels: [SKLabelNode] = []
   private var highScoreLabel: SKLabelNode?
   private var generationLabel: SKLabelNode?
+  private var scoreLabel: SKLabelNode?
   private var aliveLabel: SKLabelNode?
 
   private var lastUpdateTime : TimeInterval = 0
@@ -62,6 +63,7 @@ class GameScene: SKScene, PhysicsManager {
     highScoreLabel = self.childNode(withName: "\\gen") as? SKLabelNode
     generationLabel = self.childNode(withName: "\\generation") as? SKLabelNode
     aliveLabel = self.childNode(withName: "\\galive") as? SKLabelNode
+    scoreLabel = self.childNode(withName: "\\gscore") as? SKLabelNode
   }
   
   override func didMove(to view: SKView) {
@@ -92,6 +94,7 @@ class GameScene: SKScene, PhysicsManager {
   
   private func setupLabels() {
     self.highScoreLabel?.text = "\(self.gameState.highestScore)"
+    self.scoreLabel?.text = "\(self.gameState.currentGameScore)"
 
     guard self.players.count <= 20 else {
       return
