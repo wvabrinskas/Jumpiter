@@ -29,7 +29,7 @@ class GameBrainManager {
   public weak var delegate: GameBrainManagerDelegate?
   
   private lazy var gene: Genetic = {
-    Genetic<Float>(mutationFactor: 200, numberOfChildren: numberOfChildren)
+    Genetic<Float>(mutationFactor: 100, numberOfChildren: numberOfChildren)
   }()
 
   init(_ delegate: GameBrainManagerDelegate? = nil) {
@@ -161,14 +161,19 @@ class GameBrainManager {
       
       for i in 0..<brains.count {
         let player = self.state.players[i]
-        let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
-        let obstaclePos = obstacle.obstacle.position.x - (obstacle.obstacle.frame.size.width / 2)
-                
-        let mappedPos = Float(obstaclePos).map(from: playerPosX...frame.maxX, to: 0...1)
-        let mappedHeight = Float(obstacle.height).map(from: 0...200, to: 0...1)
-        let inputs: [Float] = [mappedPos,
-                               mappedHeight]
         
+        let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
+        
+        let obstacleXPos = obstacle.obstacle.position.x - (obstacle.obstacle.frame.size.width / 2)
+        let obstacleYPos = obstacle.obstacle.position.y + (obstacle.obstacle.frame.size.height / 2)
+
+        let mappedXPos = Float(obstacleXPos).map(from: playerPosX...frame.maxX, to: 0...1)
+        let mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.maxY, to: 0...1)
+        
+        let inputs: [Float] = [mappedXPos,
+                               mappedYPos]
+        
+//        print(inputs)
         let brain = brains[i]
         let results = brain.feed(input: inputs)
         //only one output

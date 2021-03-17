@@ -28,6 +28,7 @@ public class LevelManager: PhysicsManager {
     
     self.ground = SKShapeNode(rectOf: level.groundSize)
     self.ground.fillColor = .white
+    self.ground.zPosition = 1
     
     self.addPhysics(to: self.ground, dynamic: false)
     self.ground.physicsBody?.collisionBitMask = 1
@@ -58,10 +59,8 @@ public class LevelManager: PhysicsManager {
     let first = self.obstacles.first { (obst) -> Bool in
       let obstaclePos = obst.obstacle.position.x + obst.obstacle.frame.size.width
       if obstaclePos > adjustedPlayerPosition {
-        (obst.obstacle as? SKShapeNode)?.fillColor = .green
         return true
       } else {
-        (obst.obstacle as? SKShapeNode)?.fillColor = .red
         return false
       }
     }

@@ -9,26 +9,30 @@ import Foundation
 import SpriteKit
 
 
-public struct ObstacleHolder: Identifiable, Equatable, PhysicsManager {
-  public var id: UUID = UUID()
+public class ObstacleHolder: Identifiable, Equatable, PhysicsManager, SpriteBuilder {
+  var spriteFrames: [SKTexture] = []
   
-  public var obstacle: SKNode
-  public var height: CGFloat
+  public var id: UUID = UUID()
+  public static func == (lhs: ObstacleHolder, rhs: ObstacleHolder) -> Bool {
+    return lhs.id == rhs.id
+  }
+  public var obstacle: SKSpriteNode = SKSpriteNode()
   private var minX: CGFloat?
   
   public init(scene: SKScene, origin: CGPoint) {
     minX = -scene.frame.width
-    
-    let height = CGFloat.random(in: GameState.shared.getHeightRange())
-    self.height = height
 
-    let newObstacle = SKShapeNode(rectOf: CGSize(width: 50,
-                                                 height: height))
-    newObstacle.position = CGPoint(x: origin.x, y: (origin.y + (height / 2)))
-    newObstacle.fillColor = .systemRed
-    newObstacle.strokeColor = .clear
+    let height = CGFloat.random(in: GameState.shared.getHeightRange())
+    
+    let newObstacle = self.buildSprite(atlas: "obstacle", texturePrefix: "electric_")
+    newObstacle.size = CGSize(width: 100,
+                             height: 200)
+    
+    newObstacle.position = CGPoint(x: origin.x, y: (origin.y + height))
     
     obstacle = newObstacle
+    
+    self.animateSprite(obstacle)
     self.addPhysics(to: newObstacle, dynamic: false)
   }
   

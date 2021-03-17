@@ -42,6 +42,8 @@ class GameScene: SKScene, PhysicsManager {
   }
   
   override func sceneDidLoad() {
+    self.scaleMode = .aspectFit
+
     self.gameState.playerStartPosition = self.frame.minX * 0.3
 
     self.lastUpdateTime = 0

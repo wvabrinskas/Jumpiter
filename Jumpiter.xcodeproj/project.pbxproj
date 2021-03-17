@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912297A825F996FD00BE5DCD /* GameBrainManager.swift */; };
+		916164892601780C009E240F /* obstacle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 916164882601780C009E240F /* obstacle.atlas */; };
 		918E252026016E8B00C65CA0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 918E251F26016E8B00C65CA0 /* player.atlas */; };
+		918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E2525260173CF00C65CA0 /* SpriteBuilder.swift */; };
 		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
 		91AC4D4825F807F000295955 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4725F807F000295955 /* GameScene.sks */; };
 		91AC4D4A25F807F000295955 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91AC4D4925F807F000295955 /* Actions.sks */; };
@@ -46,7 +48,9 @@
 
 /* Begin PBXFileReference section */
 		912297A825F996FD00BE5DCD /* GameBrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrainManager.swift; sourceTree = "<group>"; };
+		916164882601780C009E240F /* obstacle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacle.atlas; sourceTree = "<group>"; };
 		918E251F26016E8B00C65CA0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
+		918E2525260173CF00C65CA0 /* SpriteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuilder.swift; sourceTree = "<group>"; };
 		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91AC4D4525F807F000295955 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91AC4D4725F807F000295955 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -97,6 +101,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		918E2524260173C000C65CA0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				918E2525260173CF00C65CA0 /* SpriteBuilder.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		91AC4D3925F807F000295955 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +132,8 @@
 		91AC4D4425F807F000295955 /* Jumpiter */ = {
 			isa = PBXGroup;
 			children = (
+				918E2524260173C000C65CA0 /* Helpers */,
+				916164882601780C009E240F /* obstacle.atlas */,
 				918E251F26016E8B00C65CA0 /* player.atlas */,
 				91F5F8DD25F86AC3007B67FE /* GameState.swift */,
 				91F5F8D525F82947007B67FE /* ObstacleHolder.swift */,
@@ -277,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				916164892601780C009E240F /* obstacle.atlas in Resources */,
 				91AC4D4825F807F000295955 /* GameScene.sks in Resources */,
 				91AC4D5025F807F300295955 /* Assets.xcassets in Resources */,
 				918E252026016E8B00C65CA0 /* player.atlas in Resources */,
@@ -308,6 +323,7 @@
 			files = (
 				91F5F8DE25F86AC3007B67FE /* GameState.swift in Sources */,
 				91F5F8D625F82947007B67FE /* ObstacleHolder.swift in Sources */,
+				918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */,
 				91AC4D4E25F807F000295955 /* ViewController.swift in Sources */,
 				91AC4D8725F80C3900295955 /* PlayerManager.swift in Sources */,
 				91AC4D4C25F807F000295955 /* GameScene.swift in Sources */,
