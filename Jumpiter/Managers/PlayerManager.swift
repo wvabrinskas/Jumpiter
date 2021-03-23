@@ -27,7 +27,7 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
 
   public init() {
     self.player = self.buildSprite(atlas: "player", texturePrefix: "player_")
-    self.player.setScale(0.5)
+    self.player.setScale(0.4)
     
     self.addPhysics(to: player, mass: 1, restitution: 0.0)
     self.player.physicsBody?.categoryBitMask = 0x00000001
