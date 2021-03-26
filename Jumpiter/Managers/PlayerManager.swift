@@ -9,8 +9,8 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-public class PlayerManager: PhysicsManager {
-  public var player: SKShapeNode
+public class PlayerManager: PhysicsManager, SpriteBuilder {
+  public var player: SKSpriteNode = SKSpriteNode()
   public var isDead: Bool = false {
     didSet {
       if isDead {
@@ -23,12 +23,11 @@ public class PlayerManager: PhysicsManager {
   public var score: Int = 0
   public var color: NSColor = .white
   public var numOfJumps: Int = 0
-  
+  internal var spriteFrames: [SKTexture] = []
+
   public init() {
-    self.player = SKShapeNode(rectOf: CGSize(width: 40, height: 40), cornerRadius: 15)
-    self.player.fillColor = self.randomColor()
-    self.color = self.player.fillColor
-    self.player.strokeColor = .white
+    self.player = self.buildSprite(atlas: "player", texturePrefix: "player_")
+    self.player.setScale(0.4)
     
     self.addPhysics(to: player, mass: 1, restitution: 0.0)
     self.player.physicsBody?.categoryBitMask = 0x00000001
@@ -52,6 +51,7 @@ public class PlayerManager: PhysicsManager {
     scene?.addChild(player)
     
     player.position = CGPoint(x: GameState.shared.playerStartPosition , y: 0)
+    self.animateSprite(self.player)
   }
   
   public func updateScore() {
