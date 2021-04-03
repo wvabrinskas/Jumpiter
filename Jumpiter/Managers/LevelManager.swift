@@ -21,6 +21,7 @@ public class LevelManager: PhysicsManager {
   
   private weak var scene: SKScene?
   private var obstacles: [ObstacleHolder] = []
+  private var coins: [Coin] = []
   
   public init(level: Level, scene: SKScene?) {
     self.level = level
@@ -53,6 +54,18 @@ public class LevelManager: PhysicsManager {
     }
   }
   
+  private func addCoin(x: CGFloat) {
+    if let scene = scene {
+      let randomY = CGFloat.random(in: -50...100)
+      let point = CGPoint(x: x, y: randomY)
+      let maker = CoinMaker(pos: point)
+      let coin = Coin(maker: maker, scene: scene)
+      coins.append(coin)
+      
+      scene.addChild(coin.coin)
+    }
+  }
+  
   public func nearestObstacle() -> ObstacleHolder? {
     let adjustedPlayerPosition = GameState.shared.playerStartPosition
     
@@ -68,12 +81,31 @@ public class LevelManager: PhysicsManager {
     return first
   }
   
-  public func didHit(_ obj: SKNode?) -> Bool {
-    for i in 0..<self.obstacles.count {
-      let obstacle = self.obstacles[i]
-      if obstacle.didHit(obj) {
+  public func nearestCoin() -> Coin? {
+    let adjustedPlayerPosition = GameState.shared.playerStartPosition
+    
+    let first = self.coins.first { (obst) -> Bool in
+      let obstaclePos = obst.coin.position.x + obst.coin.frame.size.width
+      if obstaclePos > adjustedPlayerPosition {
         return true
+      } else {
+        return false
       }
+    }
+
+    return first
+  }
+  
+  public func didHitObstacle(_ obj: SKNode?) -> Bool {
+    if let nearest = self.nearestObstacle() {
+      return nearest.didHit(obj)
+    }
+    return false
+  }
+  
+  public func didHitCoin(_ obj: SKNode?) -> Bool {
+    if let nearest = self.nearestCoin() {
+      return nearest.didHit(obj)
     }
     return false
   }
@@ -85,22 +117,40 @@ public class LevelManager: PhysicsManager {
     self.obstacles.removeAll()
   }
   
+  //gets called once a frame
   public func update() {
     let distance = CGFloat.random(in: GameState.shared.getDistanceRange())
 
     if let last = self.obstacles.last, let scene = last.obstacle.scene {
       if scene.frame.maxX - abs(last.obstacle.position.x) > distance {
         self.addObstacle()
+      } else if scene.frame.maxX - abs(last.obstacle.position.x) > (distance / 2) {
+        let x = scene.frame.maxX - abs(last.obstacle.position.x)
+        self.addCoin(x: x)
       }
     } else {
       self.addObstacle()
     }
     
     var copyObstacles = self.obstacles
+    var copyCoins = self.coins
+
+    for i in 0..<self.coins.count {
+      let coin = self.coins[i]
+      coin.move()
+      
+      if coin.shouldRemove() {
+        coin.gotCoin()
+        copyCoins.remove(at: i)
+      }
+    }
+    
+    self.coins = copyCoins
     
     for i in 0..<self.obstacles.count {
       let obstacle = self.obstacles[i]
       obstacle.move()
+      
       if obstacle.shouldRemove() {
         obstacle.obstacle.removeFromParent()
         copyObstacles.remove(at: i)

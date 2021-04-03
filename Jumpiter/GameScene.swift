@@ -193,9 +193,14 @@ class GameScene: SKScene, PhysicsManager {
       
       DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
         let manager = self.players[i]
-        if self.levelManager.didHit(manager.player) {
+        if self.levelManager.didHitObstacle(manager.player) {
           manager.isDead = true
         } else {
+          
+          if self.levelManager.didHitCoin(manager.player) {
+            manager.updateCoin()
+          }
+          
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
               self.lastUpdateTime != round(currentTime) &&
               !manager.isDead {

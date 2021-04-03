@@ -9,7 +9,15 @@ import Foundation
 import SpriteKit
 
 
-public class ObstacleHolder: Identifiable, Equatable, PhysicsManager, SpriteBuilder {
+public class ObstacleHolder: Identifiable,
+                             Equatable,
+                             PhysicsManager,
+                             SpriteBuilder,
+                             HitTester {
+  var hitTestObject: SKNode {
+    return obstacle
+  }
+  
   var spriteFrames: [SKTexture] = []
   
   public var id: UUID = UUID()
@@ -47,13 +55,5 @@ public class ObstacleHolder: Identifiable, Equatable, PhysicsManager, SpriteBuil
       return true
     }    
     return (obstacle.position.x + obstacle.frame.size.width) < min
-  }
-  
-  public func didHit(_ obj: SKNode?) -> Bool {
-    guard let node = obj  else {
-      return true
-    }
-
-    return node.frame.intersects(obstacle.frame)
   }
 }
