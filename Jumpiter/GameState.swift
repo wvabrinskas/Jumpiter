@@ -11,6 +11,7 @@ import Combine
 public class GameState: ObservableObject {
   public static let shared = GameState()
   public var highestScore: Int = 0
+  public var highestWallet: Int = 0
   public var currentGameScore: Int = 0
   public var playerStartPosition: CGFloat = 0
   public var nearestObstacle: ObstacleHolder?
@@ -54,6 +55,10 @@ public class GameState: ObservableObject {
       maxObstacleHeight = 50
     }
     gameDone = done
+  }
+  
+  public func setHighestWallet(wallet: Int) {
+    highestWallet = max(wallet, highestWallet)
   }
   
   public func setHighestScore(score: Int) {

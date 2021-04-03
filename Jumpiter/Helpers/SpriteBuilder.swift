@@ -8,6 +8,7 @@
 import Foundation
 import SpriteKit
 
+
 protocol SpriteBuilder: class {
   var spriteFrames: [SKTexture] { get set }
   
