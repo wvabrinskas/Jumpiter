@@ -122,9 +122,7 @@ public class LevelManager: PhysicsManager {
     if let nearest = self.nearestCoin() {
       let value = nearest.didHit(obj)
       if value {
-        if nearest.coin.parent != nil {
-          nearest.removePhysics()
-        }
+        nearest.removePhysics()
       }
       return value
     }

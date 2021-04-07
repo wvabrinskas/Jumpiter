@@ -42,11 +42,10 @@ class GameBrainManager {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score) + (Double(player.wallet) * 1.5)
+      let result: Double = Double(player.score) + (Double(player.wallet * 0.5))
       
       let powerResult = pow(result, self.rankingExponent)
       
-      //print(powerResult)s
       return powerResult
     }
     
@@ -175,7 +174,6 @@ class GameBrainManager {
         var mappedCoinYPos: Float = 0
         
         if let coin = self.state.nearestCoin {
-          
           let coinXPos: CGFloat = coin.coin.position.x - (coin.coin.frame.size.width / 2)
           let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
           
@@ -188,7 +186,8 @@ class GameBrainManager {
                                mappedCoinXPos,
                                mappedCoinYPos]
         
-        print(inputs)
+        //print(inputs)
+        
         let brain = brains[i]
         let results = brain.feed(input: inputs)
         //only one output

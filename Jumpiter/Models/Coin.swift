@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 public struct CoinMaker {
-  var value: Int = 5
+  var value: Float = 0.5
   var pos: CGPoint
 }
 
@@ -32,7 +32,7 @@ public class Coin: SpriteBuilder,
   }
   
   public var id: UUID = UUID()
-  public var value: Int
+  public var value: Float
   public var coin: SKSpriteNode = SKSpriteNode()
   public var position: CGPoint
   private var minX: CGFloat?
@@ -53,6 +53,8 @@ public class Coin: SpriteBuilder,
     self.coin = self.buildSprite(atlas: "coin", texturePrefix: "coin_")
     self.coin.position = self.position
     self.addPhysics(to: coin, dynamic: false)
+    self.coin.physicsBody?.categoryBitMask = 0x00000001
+    self.coin.physicsBody?.collisionBitMask = 0x00000010
     self.animateSprite(coin)
   }
   
@@ -73,10 +75,10 @@ public class Coin: SpriteBuilder,
     return (coin.position.x + coin.frame.size.width) < min
   }
   
+  //dirty hack to remove coin from UI but not from the scene
+  //will be removed when it goes off screen
   public func removePhysics() {
     self.coin.isHidden = true
-    self.coin.physicsBody?.categoryBitMask = 0x00000001
-    self.coin.physicsBody?.collisionBitMask = 0x00000010
   }
   
 }

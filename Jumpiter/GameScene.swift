@@ -105,7 +105,7 @@ class GameScene: SKScene, PhysicsManager {
     guard self.scoreLabels.count == 0 else {
       var i = 0
       self.players.forEach { (manager) in
-        self.scoreLabels[i].text = "Player \(i + 1): \(manager.score)"
+        self.scoreLabels[i].text = "Player \(i + 1): \(manager.score) wallet: \(manager.wallet)"
         i += 1
       }
       return
@@ -114,7 +114,7 @@ class GameScene: SKScene, PhysicsManager {
     var i = 0
     let spacing: CGFloat = 30
     self.players.forEach { (manager) in
-      let label = SKLabelNode(text: "Player \(i + 1): \(manager.score)")
+      let label = SKLabelNode(text: "Player \(i + 1): \(manager.score) wallet: \(manager.wallet)")
       self.scoreLabels.append(label)
       label.fontSize = 22
       label.fontName = "Helvetica Neue Bold"
@@ -202,8 +202,9 @@ class GameScene: SKScene, PhysicsManager {
           manager.isDead = true
         } else {
           
-          if self.levelManager.didHitCoin(manager.player) {
-            manager.updateCoin()
+          if self.levelManager.didHitCoin(manager.player),
+             let value = self.levelManager.nearestCoin()?.value {
+            manager.updateCoin(value)
           }
           
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
