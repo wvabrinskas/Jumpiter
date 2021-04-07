@@ -191,6 +191,11 @@ class GameScene: SKScene, PhysicsManager {
         gameState.nearestObstacle = closest
       }
       
+      if let closestCoin = self.levelManager.nearestCoin(),
+         closestCoin != gameState.nearestCoin {
+        gameState.nearestCoin = closestCoin
+      }
+      
       DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
         let manager = self.players[i]
         if self.levelManager.didHitObstacle(manager.player) {

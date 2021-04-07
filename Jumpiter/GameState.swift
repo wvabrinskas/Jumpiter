@@ -15,7 +15,8 @@ public class GameState: ObservableObject {
   public var currentGameScore: Int = 0
   public var playerStartPosition: CGFloat = 0
   public var nearestObstacle: ObstacleHolder?
-  
+  public var nearestCoin: Coin?
+
   private var minStartingDistance: CGFloat = 450
   private var maxStartingDistance: CGFloat = 550
   private var minObstacleHeight: CGFloat = 5
@@ -53,6 +54,7 @@ public class GameState: ObservableObject {
       maxStartingDistance = 550
       minObstacleHeight = 5
       maxObstacleHeight = 50
+      nearestCoin = nil
     }
     gameDone = done
   }

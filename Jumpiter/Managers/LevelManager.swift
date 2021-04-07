@@ -9,12 +9,26 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+@propertyWrapper struct RangeCapped<T: Numeric & Comparable> {
+  var range: ClosedRange<T>
+  var wrappedValue: T {
+    didSet {
+      wrappedValue = min(max(range.lowerBound, wrappedValue), range.upperBound)
+    }
+  }
+  init(wrappedValue: T, range: ClosedRange<T>) {
+    self.range = range
+    self.wrappedValue = min(max(range.lowerBound, wrappedValue), range.upperBound)
+  }
+}
+
 public struct Level {
   var groundSize: CGSize
   let minStartingDistance = 450
   let maxStartingDistance = 550
+  @RangeCapped(range: 0...100) var coinRandomness: Int = 2
 }
-
+ 
 public class LevelManager: PhysicsManager {
   public var ground: SKShapeNode
   public var level: Level
@@ -55,8 +69,9 @@ public class LevelManager: PhysicsManager {
   }
   
   private func addCoin(x: CGFloat) {
-    if let scene = scene {
-      let randomY = CGFloat.random(in: -50...100)
+    let random = Int.random(in: 0...level.coinRandomness)
+    if let scene = scene, random == 1 {
+      let randomY = CGFloat.random(in: -100...20)
       let point = CGPoint(x: x, y: randomY)
       let maker = CoinMaker(pos: point)
       let coin = Coin(maker: maker, scene: scene)
@@ -105,7 +120,13 @@ public class LevelManager: PhysicsManager {
   
   public func didHitCoin(_ obj: SKNode?) -> Bool {
     if let nearest = self.nearestCoin() {
-      return nearest.didHit(obj)
+      let value = nearest.didHit(obj)
+      if value {
+        if nearest.coin.parent != nil {
+          nearest.removePhysics()
+        }
+      }
+      return value
     }
     return false
   }
@@ -117,6 +138,7 @@ public class LevelManager: PhysicsManager {
     self.obstacles.removeAll()
   }
   
+  
   //gets called once a frame
   public func update() {
     let distance = CGFloat.random(in: GameState.shared.getDistanceRange())
@@ -124,9 +146,9 @@ public class LevelManager: PhysicsManager {
     if let last = self.obstacles.last, let scene = last.obstacle.scene {
       if scene.frame.maxX - abs(last.obstacle.position.x) > distance {
         self.addObstacle()
-      } else if scene.frame.maxX - abs(last.obstacle.position.x) > (distance / 2) {
-        let x = scene.frame.maxX - abs(last.obstacle.position.x)
-        self.addCoin(x: x)
+    
+        let coinX = scene.frame.maxX + (distance / 2)
+        self.addCoin(x: coinX)
       }
     } else {
       self.addObstacle()

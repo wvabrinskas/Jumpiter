@@ -13,16 +13,34 @@ public struct CoinMaker {
   var pos: CGPoint
 }
 
-public class Coin: SpriteBuilder, HitTester, PhysicsManager {
+public class Coin: SpriteBuilder,
+                   HitTester,
+                   PhysicsManager,
+                   Equatable {
+
   var hitTestObject: SKNode {
     return coin
   }
   internal var spriteFrames: [SKTexture] = []
+  
+  public var collected: Bool = false {
+    didSet {
+      DispatchQueue.main.async {
+        self.coin.removeFromParent()
+      }
+    }
+  }
+  
+  public var id: UUID = UUID()
   public var value: Int
   public var coin: SKSpriteNode = SKSpriteNode()
   public var position: CGPoint
   private var minX: CGFloat?
 
+  public static func == (lhs: Coin, rhs: Coin) -> Bool {
+    lhs.id == rhs.id
+  }
+  
   public init(maker: CoinMaker, scene: SKScene) {
     minX = -scene.frame.width
 
@@ -54,4 +72,11 @@ public class Coin: SpriteBuilder, HitTester, PhysicsManager {
     }
     return (coin.position.x + coin.frame.size.width) < min
   }
+  
+  public func removePhysics() {
+    self.coin.isHidden = true
+    self.coin.physicsBody?.categoryBitMask = 0x00000001
+    self.coin.physicsBody?.collisionBitMask = 0x00000010
+  }
+  
 }

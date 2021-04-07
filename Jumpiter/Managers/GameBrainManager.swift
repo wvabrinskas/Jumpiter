@@ -18,7 +18,7 @@ protocol GameBrainManagerDelegate: class {
 class GameBrainManager {
   private let state: GameState = .shared
   private let rankingExponent = 2.0
-  private let inputs = 2
+  private let inputs = 4
   private let hiddenNodes = 5
   private let outputs = 2
   private let numOfHiddenLayers = 1
@@ -42,7 +42,7 @@ class GameBrainManager {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score)
+      let result: Double = Double(player.score) + (Double(player.wallet) * 1.5)
       
       let powerResult = pow(result, self.rankingExponent)
       
@@ -156,7 +156,7 @@ class GameBrainManager {
   }
   
   public func feed(_ frame: CGRect) {
-    
+
     if let obstacle = self.state.nearestObstacle {
       
       for i in 0..<brains.count {
@@ -164,16 +164,31 @@ class GameBrainManager {
         
         let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
         
-        let obstacleXPos = obstacle.obstacle.position.x - (obstacle.obstacle.frame.size.width / 2)
+        let obstacleXPos = obstacle.obstacle.position.x -          (obstacle.obstacle.frame.size.width / 2)
+        
         let obstacleYPos = obstacle.obstacle.position.y + (obstacle.obstacle.frame.size.height / 2)
 
         let mappedXPos = Float(obstacleXPos).map(from: playerPosX...frame.maxX, to: 0...1)
         let mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.maxY, to: 0...1)
+      
+        var mappedCoinXPos: Float = 0
+        var mappedCoinYPos: Float = 0
+        
+        if let coin = self.state.nearestCoin {
+          
+          let coinXPos: CGFloat = coin.coin.position.x - (coin.coin.frame.size.width / 2)
+          let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
+          
+          mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: 0...1)
+          mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.maxY, to: 0...1)
+        }
         
         let inputs: [Float] = [mappedXPos,
-                               mappedYPos]
+                               mappedYPos,
+                               mappedCoinXPos,
+                               mappedCoinYPos]
         
-//        print(inputs)
+        print(inputs)
         let brain = brains[i]
         let results = brain.feed(input: inputs)
         //only one output
