@@ -30,7 +30,10 @@ class GameScene: SKScene, PhysicsManager {
       size = CGSize(width: scene.size.width, height: 100)
     }
     
-    let level = Level(groundSize: size)
+    let level = Level(groundSize: size,
+                      minStartingDistance: 500,
+                      maxStartingDistance: 600)
+    GameState.shared.setLevel(level: level)
     return LevelManager(level: level, scene: self)
   }()
 
@@ -203,8 +206,8 @@ class GameScene: SKScene, PhysicsManager {
         } else {
           
           if self.levelManager.didHitCoin(manager.player),
-             let value = self.levelManager.nearestCoin()?.value {
-            manager.updateCoin(value)
+             let value = self.levelManager.nearestCoin() {
+            manager.updateCoin(value.value, value.id)
           }
           
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&

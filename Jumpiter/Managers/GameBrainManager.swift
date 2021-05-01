@@ -42,7 +42,7 @@ class GameBrainManager {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score) + (Double(player.wallet * 0.5))
+      let result: Double = Double(player.score) + (Double(player.wallet))
       
       let powerResult = pow(result, self.rankingExponent)
       
@@ -178,7 +178,7 @@ class GameBrainManager {
           let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
           
           mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: 0...1)
-          mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.maxY, to: 0...1)
+          mappedCoinYPos = Float(coinYPos).map(from: frame.midY...frame.maxY, to: 0...1) //closer the better
         }
         
         let inputs: [Float] = [mappedXPos,

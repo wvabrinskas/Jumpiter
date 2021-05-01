@@ -24,9 +24,9 @@ import GameplayKit
 
 public struct Level {
   var groundSize: CGSize
-  let minStartingDistance = 450
-  let maxStartingDistance = 550
-  @RangeCapped(range: 0...100) var coinRandomness: Int = 2
+  var minStartingDistance: CGFloat = 450
+  var maxStartingDistance: CGFloat = 550
+  @RangeCapped(range: 0...100) var coinRandomness: Int = 1
 }
  
 public class LevelManager: PhysicsManager {
@@ -76,7 +76,7 @@ public class LevelManager: PhysicsManager {
       let maker = CoinMaker(pos: point)
       let coin = Coin(maker: maker, scene: scene)
       coins.append(coin)
-      
+      print("add coin")
       scene.addChild(coin.coin)
     }
   }
@@ -145,7 +145,7 @@ public class LevelManager: PhysicsManager {
       if scene.frame.maxX - abs(last.obstacle.position.x) > distance {
         self.addObstacle()
     
-        let coinX = scene.frame.maxX + (distance / 2)
+        let coinX = scene.frame.maxX + 300
         self.addCoin(x: coinX)
       }
     } else {

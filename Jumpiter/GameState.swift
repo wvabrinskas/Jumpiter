@@ -17,8 +17,9 @@ public class GameState: ObservableObject {
   public var nearestObstacle: ObstacleHolder?
   public var nearestCoin: Coin?
 
-  private var minStartingDistance: CGFloat = 450
-  private var maxStartingDistance: CGFloat = 550
+  private var level: Level?
+  public var minStartingDistance: CGFloat = 450
+  public var maxStartingDistance: CGFloat = 550
   private var minObstacleHeight: CGFloat = 5
   private var maxObstacleHeight: CGFloat = 50
   
@@ -50,13 +51,19 @@ public class GameState: ObservableObject {
   public func setGameStatus(done: Bool) {
     if gameDone {
       self.currentGameScore = 0
-      minStartingDistance = 450
-      maxStartingDistance = 550
+      minStartingDistance = level?.minStartingDistance ?? 450
+      maxStartingDistance = level?.maxStartingDistance ?? 550
       minObstacleHeight = 5
       maxObstacleHeight = 50
       nearestCoin = nil
     }
     gameDone = done
+  }
+  
+  public func setLevel(level: Level) {
+    self.minStartingDistance = level.minStartingDistance
+    self.maxStartingDistance = level.maxStartingDistance
+    self.level = level
   }
   
   public func setHighestWallet(wallet: Float) {

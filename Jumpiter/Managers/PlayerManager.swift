@@ -24,6 +24,7 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
   public var wallet: Float = 0
   public var color: NSColor = .white
   public var numOfJumps: Int = 0
+  public var lastCollectedCoinId: UUID?
   internal var spriteFrames: [SKTexture] = []
 
   public init() {
@@ -55,7 +56,11 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
     self.animateSprite(self.player)
   }
   
-  public func updateCoin(_ value: Float) {
+  public func updateCoin(_ value: Float, _ id: UUID) {
+    guard id != self.lastCollectedCoinId else {
+      return
+    }
+    self.lastCollectedCoinId = id
     wallet += value
     GameState.shared.setHighestWallet(wallet: wallet)
   }
