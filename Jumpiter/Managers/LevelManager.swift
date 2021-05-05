@@ -45,7 +45,7 @@ public class LevelManager: PhysicsManager {
     self.ground.fillColor = .white
     self.ground.zPosition = 1
     
-    self.addPhysics(to: self.ground, dynamic: false)
+    self.addPhysics(to: self.ground, size: self.ground.frame.size, dynamic: false)
     self.ground.physicsBody?.collisionBitMask = 1
   }
   
@@ -71,12 +71,11 @@ public class LevelManager: PhysicsManager {
   private func addCoin(x: CGFloat) {
     let random = Int.random(in: 0...level.coinRandomness)
     if let scene = scene, random == 1 {
-      let randomY = CGFloat.random(in: -100...20)
+      let randomY = CGFloat.random(in: 50 + scene.frame.minY...scene.frame.midY)
       let point = CGPoint(x: x, y: randomY)
       let maker = CoinMaker(pos: point)
       let coin = Coin(maker: maker, scene: scene)
       coins.append(coin)
-      print("add coin")
       scene.addChild(coin.coin)
     }
   }

@@ -19,17 +19,17 @@ class GameBrainManager {
   private let state: GameState = .shared
   private let rankingExponent = 2.0
   private let inputs = 4
-  private let hiddenNodes = 5
+  private let hiddenNodes = 3
   private let outputs = 2
   private let numOfHiddenLayers = 1
-  private let numberOfChildren = 20
+  private let numberOfChildren = 100
   private var brains: [Brain] = []
   private var gameDoneCancellable: AnyCancellable?
   private var gameOver: Bool = false
   public weak var delegate: GameBrainManagerDelegate?
   
   private lazy var gene: Genetic = {
-    Genetic<Float>(mutationFactor: 50, numberOfChildren: numberOfChildren)
+    Genetic<Float>(mutationFactor: 10, numberOfChildren: numberOfChildren)
   }()
   
   init(_ delegate: GameBrainManagerDelegate? = nil) {
@@ -42,7 +42,7 @@ class GameBrainManager {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score * 2) + (Double(player.wallet))
+      let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 10))
       
       let powerResult = pow(result, self.rankingExponent)
       
@@ -155,13 +155,14 @@ class GameBrainManager {
   }
   
   public func feed(_ frame: CGRect) {
-    let mapRange: ClosedRange<CGFloat> = -1...1
+    let mapRange: ClosedRange<CGFloat> = 0...1
     
     for i in 0..<brains.count {
       let player = self.state.players[i]
       
       let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
-      
+      let playerPosY = (player.player.position.y + (player.player.frame.size.height / 2))
+
       var mappedXPos: Float = Float(mapRange.lowerBound)
       var mappedYPos: Float = Float(mapRange.lowerBound)
       
@@ -170,7 +171,7 @@ class GameBrainManager {
         let obstacleYPos = obstacle.obstacle.position.y + (obstacle.obstacle.frame.size.height / 2)
         
         mappedXPos = Float(obstacleXPos).map(from: playerPosX...frame.maxX, to: mapRange)
-        mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.maxY, to: mapRange)
+        mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.midY, to: mapRange)
         
       }
       
@@ -182,15 +183,15 @@ class GameBrainManager {
         let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
         
         mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: mapRange)
-        mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.maxY, to: mapRange) //closer the better
+        mappedCoinYPos = Float(coinYPos).map(from: min(playerPosY, 50 + frame.minY)...frame.midY, to: mapRange) //closer the better
       }
       
-      let inputs: [Float] = [mappedXPos,
+      let inputs: [Float] = [1 - mappedXPos,
                              mappedYPos,
-                             mappedCoinXPos,
+                             1 - mappedCoinXPos,
                              mappedCoinYPos]
       
-      //print(inputs)
+      //sprint(inputs)
       
       let brain = brains[i]
       let results = brain.feed(input: inputs)

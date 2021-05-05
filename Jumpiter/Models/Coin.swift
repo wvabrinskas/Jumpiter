@@ -23,9 +23,10 @@ public class Coin: SpriteBuilder,
   }
   internal var spriteFrames: [SKTexture] = []
   
-  public var collected: Bool = false {
+  private var collected: Bool = false {
     didSet {
       DispatchQueue.main.async {
+        self.coin.physicsBody = nil
         self.coin.removeFromParent()
       }
     }
@@ -42,7 +43,7 @@ public class Coin: SpriteBuilder,
   }
   
   public init(maker: CoinMaker, scene: SKScene) {
-    minX = -scene.frame.width
+    minX = scene.frame.minX
 
     self.value = maker.value
     self.position = maker.pos
@@ -52,14 +53,14 @@ public class Coin: SpriteBuilder,
   private func buildCoin() {
     self.coin = self.buildSprite(atlas: "coin", texturePrefix: "coin_")
     self.coin.position = self.position
-    self.addPhysics(to: coin, dynamic: false)
+    self.addPhysics(to: coin, size: coin.frame.size, dynamic: false)
     self.coin.physicsBody?.categoryBitMask = 0x00000001
     self.coin.physicsBody?.collisionBitMask = 0x00000010
     self.animateSprite(coin)
   }
   
   public func gotCoin() {
-    self.coin.removeFromParent()
+    self.collected = true
   }
   
   public func move() {

@@ -14,6 +14,7 @@ public enum ForceVector {
 
 protocol PhysicsManager {
   func addPhysics(to: SKNode?,
+                  size: CGSize,
                   dynamic: Bool,
                   mass: CGFloat,
                   allowRotation: Bool,
@@ -32,6 +33,7 @@ extension PhysicsManager {
   }
   
   func addPhysics(to: SKNode?,
+                  size: CGSize,
                   dynamic: Bool = true,
                   mass: CGFloat = 10,
                   allowRotation: Bool = false,
@@ -40,7 +42,8 @@ extension PhysicsManager {
       return
     }
     
-    node.physicsBody = SKPhysicsBody(rectangleOf: node.frame.size)
+
+    node.physicsBody = SKPhysicsBody(rectangleOf: size)
     node.physicsBody?.isDynamic = dynamic
     node.physicsBody?.mass = mass
     node.physicsBody?.allowsRotation = allowRotation

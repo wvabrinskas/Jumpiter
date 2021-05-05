@@ -31,9 +31,17 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
     self.player = self.buildSprite(atlas: "player", texturePrefix: "player_")
     self.player.setScale(0.4)
     
-    self.addPhysics(to: player, mass: 1, restitution: 0.0)
+    let size = CGSize(width: player.frame.size.width * 0.8,
+                      height: player.frame.size.height * 0.88)
+    
+    self.addPhysics(to: player, size: size, mass: 1, restitution: 0.0)
     self.player.physicsBody?.categoryBitMask = 0x00000001
     self.player.physicsBody?.collisionBitMask = 0x00000010
+  }
+  
+  public func setOff(off: Bool) {
+    self.player.isHidden = !off
+    self.player.isPaused = !off
   }
   
   private func randomColor() -> NSColor {

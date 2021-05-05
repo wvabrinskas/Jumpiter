@@ -204,7 +204,7 @@ class GameScene: SKScene, PhysicsManager {
         if self.levelManager.didHitObstacle(manager.player) {
           manager.isDead = true
         } else {
-          
+ 
           if self.levelManager.didHitCoin(manager.player),
              let value = self.levelManager.nearestCoin() {
             manager.updateCoin(value.value, value.id)
