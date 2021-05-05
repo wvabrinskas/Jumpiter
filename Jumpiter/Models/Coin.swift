@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 public struct CoinMaker {
-  var value: Float = 0.5
+  var value: Float = 1.0
   var pos: CGPoint
 }
 

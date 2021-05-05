@@ -22,16 +22,16 @@ class GameBrainManager {
   private let hiddenNodes = 5
   private let outputs = 2
   private let numOfHiddenLayers = 1
-  private let numberOfChildren = 50
+  private let numberOfChildren = 20
   private var brains: [Brain] = []
   private var gameDoneCancellable: AnyCancellable?
   private var gameOver: Bool = false
   public weak var delegate: GameBrainManagerDelegate?
   
   private lazy var gene: Genetic = {
-    Genetic<Float>(mutationFactor: 100, numberOfChildren: numberOfChildren)
+    Genetic<Float>(mutationFactor: 50, numberOfChildren: numberOfChildren)
   }()
-
+  
   init(_ delegate: GameBrainManagerDelegate? = nil) {
     self.delegate = delegate
     
@@ -42,7 +42,7 @@ class GameBrainManager {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score) + (Double(player.wallet))
+      let result: Double = Double(player.score * 2) + (Double(player.wallet))
       
       let powerResult = pow(result, self.rankingExponent)
       
@@ -116,7 +116,7 @@ class GameBrainManager {
           workingWeights.append(Array(copyWeights[0..<inputs]))
           copyWeights.removeSubrange(0..<inputs)
         }
- 
+        
       }
     }
     
@@ -124,7 +124,7 @@ class GameBrainManager {
       workingWeights.append(Array(copyWeights[0..<hiddenNodes]))
       copyWeights.removeSubrange(0..<hiddenNodes)
     }
-        
+    
     brain.replaceWeights(weights: workingWeights)
   }
   
@@ -155,46 +155,49 @@ class GameBrainManager {
   }
   
   public func feed(_ frame: CGRect) {
-
-    if let obstacle = self.state.nearestObstacle {
+    let mapRange: ClosedRange<CGFloat> = -1...1
+    
+    for i in 0..<brains.count {
+      let player = self.state.players[i]
       
-      for i in 0..<brains.count {
-        let player = self.state.players[i]
-        
-        let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
-        
-        let obstacleXPos = obstacle.obstacle.position.x -          (obstacle.obstacle.frame.size.width / 2)
-        
+      let playerPosX = (player.player.position.x + (player.player.frame.size.width / 2))
+      
+      var mappedXPos: Float = Float(mapRange.lowerBound)
+      var mappedYPos: Float = Float(mapRange.lowerBound)
+      
+      if let obstacle = self.state.nearestObstacle {
+        let obstacleXPos = obstacle.obstacle.position.x - (obstacle.obstacle.frame.size.width / 2)
         let obstacleYPos = obstacle.obstacle.position.y + (obstacle.obstacle.frame.size.height / 2)
-
-        let mappedXPos = Float(obstacleXPos).map(from: playerPosX...frame.maxX, to: 0...1)
-        let mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.maxY, to: 0...1)
+        
+        mappedXPos = Float(obstacleXPos).map(from: playerPosX...frame.maxX, to: mapRange)
+        mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.maxY, to: mapRange)
+        
+      }
       
-        var mappedCoinXPos: Float = 0
-        var mappedCoinYPos: Float = 0
+      var mappedCoinXPos: Float = Float(mapRange.lowerBound)
+      var mappedCoinYPos: Float = Float(mapRange.lowerBound)
+      
+      if let coin = self.state.nearestCoin {
+        let coinXPos: CGFloat = coin.coin.position.x - (coin.coin.frame.size.width / 2)
+        let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
         
-        if let coin = self.state.nearestCoin {
-          let coinXPos: CGFloat = coin.coin.position.x - (coin.coin.frame.size.width / 2)
-          let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
-          
-          mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: 0...1)
-          mappedCoinYPos = Float(coinYPos).map(from: frame.midY...frame.maxY, to: 0...1) //closer the better
-        }
-        
-        let inputs: [Float] = [mappedXPos,
-                               mappedYPos,
-                               mappedCoinXPos,
-                               mappedCoinYPos]
-        
-        //print(inputs)
-        
-        let brain = brains[i]
-        let results = brain.feed(input: inputs)
-        //only one output
-        if let argmax = results.max(), let index = results.firstIndex(of: argmax) {
-          if index == 0 {
-            self.delegate?.jump(index: i)
-          }
+        mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: mapRange)
+        mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.maxY, to: mapRange) //closer the better
+      }
+      
+      let inputs: [Float] = [mappedXPos,
+                             mappedYPos,
+                             mappedCoinXPos,
+                             mappedCoinYPos]
+      
+      //print(inputs)
+      
+      let brain = brains[i]
+      let results = brain.feed(input: inputs)
+      //only one output
+      if let argmax = results.max(), let index = results.firstIndex(of: argmax) {
+        if index == 0 {
+          self.delegate?.jump(index: i)
         }
       }
     }
