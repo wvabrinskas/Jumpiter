@@ -77,6 +77,8 @@ class GameScene: SKScene, PhysicsManager {
     super.didMove(to: view)
     
     physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+    self.physicsWorld.contactDelegate = self
+    
     self.startPhysics(world: self.physicsWorld, gravity: -27)
     
     self.levelManager.setup()
@@ -209,12 +211,6 @@ class GameScene: SKScene, PhysicsManager {
           
         } else {
  
-          if self.levelManager.didHitCoin(manager.player),
-             let value = self.levelManager.nearestCoin() {
-            manager.updateCoin(value.value, value.id)
-            self.levelManager.collectedCoin()
-          }
-          
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
               self.lastUpdateTime != round(currentTime) &&
               !manager.isDead {
@@ -251,5 +247,29 @@ extension GameScene: GameBrainManagerDelegate {
       self.reset()
       self.generationLabel?.text = "\(generation)"
     }
+  }
+}
+
+extension GameScene: SKPhysicsContactDelegate {
+  func didBegin(_ contact: SKPhysicsContact) {
+    if contact.bodyA.contactTestBitMask | contact.bodyB.contactTestBitMask == ContactBitMasks.coinPlayer {
+      
+      let bodies = [contact.bodyB.node, contact.bodyA.node].compactMap({ $0 })
+      
+      self.players.forEach { manager in
+        if bodies.contains(manager.player) {
+          if let value = self.levelManager.nearestCoin() {
+            manager.updateCoin(value.value, value.id)
+          }
+          self.levelManager.collectedCoin()
+          return
+        }
+      }
+
+    }
+  }
+  
+  func didEnd(_ contact: SKPhysicsContact) {
+    
   }
 }

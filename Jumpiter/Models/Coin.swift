@@ -54,8 +54,10 @@ public class Coin: SpriteBuilder,
     self.coin = self.buildSprite(atlas: "coin", texturePrefix: "coin_")
     self.coin.position = self.position
     self.addPhysics(to: coin, size: coin.frame.size, dynamic: false)
-    self.coin.physicsBody?.categoryBitMask = 0x00000001
-    self.coin.physicsBody?.collisionBitMask = 0x00000010
+    self.coin.physicsBody?.collisionBitMask = 0b0001
+    self.coin.physicsBody?.categoryBitMask = 0b0100
+    self.coin.physicsBody?.contactTestBitMask = ContactBitMasks.coin.rawValue
+
     self.animateSprite(coin)
   }
   

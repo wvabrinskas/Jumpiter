@@ -45,6 +45,7 @@ public class ObstacleHolder: Identifiable,
     let obstacleSize = CGSize(width: newObstacle.frame.size.width * 0.5,
                               height: newObstacle.frame.size.height * 0.7)
     self.addPhysics(to: newObstacle, size: obstacleSize, dynamic: false)
+    
   }
   
   public func move() {

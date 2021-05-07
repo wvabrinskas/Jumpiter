@@ -35,8 +35,9 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
                       height: player.frame.size.height * 0.88)
     
     self.addPhysics(to: player, size: size, mass: 1, restitution: 0.0)
-    self.player.physicsBody?.categoryBitMask = 0x00000001
-    self.player.physicsBody?.collisionBitMask = 0x00000010
+    self.player.physicsBody?.categoryBitMask = 0b0010
+    self.player.physicsBody?.collisionBitMask = 0b0001
+    self.player.physicsBody?.contactTestBitMask = ContactBitMasks.player.rawValue
   }
   
   public func setOff(off: Bool) {

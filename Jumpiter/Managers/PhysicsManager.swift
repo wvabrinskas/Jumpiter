@@ -8,6 +8,19 @@
 import Foundation
 import SpriteKit
 
+
+public enum ContactBitMasks: UInt32 {
+  case player = 0b1000
+  case ground = 0b0100
+  case coin = 0b0010
+  case obstacle = 0b0001
+  
+  static var coinPlayer: UInt32 {
+    return ContactBitMasks.player.rawValue | ContactBitMasks.coin.rawValue
+  }
+}
+
+
 public enum ForceVector {
   case up, down, left, right
 }

@@ -46,7 +46,9 @@ public class LevelManager: PhysicsManager {
     self.ground.zPosition = 1
     
     self.addPhysics(to: self.ground, size: self.ground.frame.size, dynamic: false)
-    self.ground.physicsBody?.collisionBitMask = 1
+    self.ground.physicsBody?.categoryBitMask = 0b0001
+    self.ground.physicsBody?.contactTestBitMask = ContactBitMasks.ground.rawValue
+
   }
   
   public func setup() {
