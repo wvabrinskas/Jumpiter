@@ -199,15 +199,17 @@ class GameScene: SKScene, PhysicsManager {
         gameState.nearestCoin = closestCoin
       }
       
-      DispatchQueue.concurrentPerform(iterations: self.players.count) { (i) in
+      for i in 0..<self.players.count {
         let manager = self.players[i]
         if self.levelManager.didHitObstacle(manager.player) {
           manager.isDead = true
+          
         } else {
  
           if self.levelManager.didHitCoin(manager.player),
              let value = self.levelManager.nearestCoin() {
             manager.updateCoin(value.value, value.id)
+            self.levelManager.collectedCoin()
           }
           
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
@@ -220,6 +222,7 @@ class GameScene: SKScene, PhysicsManager {
           allPlayersDead = false
         }
       }
+
 
       if !allPlayersDead {
         self.brainManager.feed(self.frame)

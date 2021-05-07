@@ -110,6 +110,14 @@ public class LevelManager: PhysicsManager {
     return first
   }
   
+  public func collectedCoin() {
+    if let nearest = self.nearestCoin(),
+       let index = self.coins.firstIndex(of: nearest) {
+      nearest.coin.removeFromParent()
+      self.coins.remove(at: index)
+    }
+  }
+  
   public func didHitObstacle(_ obj: SKNode?) -> Bool {
     if let nearest = self.nearestObstacle() {
       return nearest.didHit(obj)
@@ -119,11 +127,7 @@ public class LevelManager: PhysicsManager {
   
   public func didHitCoin(_ obj: SKNode?) -> Bool {
     if let nearest = self.nearestCoin() {
-      let value = nearest.didHit(obj)
-      if value {
-        nearest.removePhysics()
-      }
-      return value
+      return nearest.didHit(obj)
     }
     return false
   }
@@ -144,7 +148,7 @@ public class LevelManager: PhysicsManager {
       if scene.frame.maxX - abs(last.obstacle.position.x) > distance {
         self.addObstacle()
     
-        let coinX = scene.frame.maxX + 300
+        let coinX = scene.frame.maxX + 100
         self.addCoin(x: coinX)
       }
     } else {
@@ -159,7 +163,7 @@ public class LevelManager: PhysicsManager {
       coin.move()
       
       if coin.shouldRemove() {
-        coin.gotCoin()
+        coin.coin.removeFromParent()
         copyCoins.remove(at: i)
       }
     }
