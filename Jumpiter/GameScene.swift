@@ -260,9 +260,9 @@ extension GameScene: SKPhysicsContactDelegate {
         if bodies.contains(manager.player) {
           if let value = self.levelManager.nearestCoin() {
             manager.updateCoin(value.value, value.id)
+            self.levelManager.collectedCoin()
+            return
           }
-          self.levelManager.collectedCoin()
-          return
         }
       }
 

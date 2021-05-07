@@ -35,7 +35,7 @@ class ViewController: NSViewController {
           view.showsFPS = true
           view.showsNodeCount = true
           view.window?.styleMask.remove(.resizable)
-          view.showsPhysics = true
+          view.showsPhysics = false
         }
       }
     }
