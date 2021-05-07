@@ -21,7 +21,7 @@ class GameBrainManager {
   private let inputs = 4
   private let hiddenNodes = 3
   private let outputs = 2
-  private let numOfHiddenLayers = 1
+  private let numOfHiddenLayers = 2
   private let numberOfChildren = 100
   private var brains: [Brain] = []
   private var gameDoneCancellable: AnyCancellable?
@@ -29,7 +29,7 @@ class GameBrainManager {
   public weak var delegate: GameBrainManagerDelegate?
   
   private lazy var gene: Genetic = {
-    Genetic<Float>(mutationFactor: 10, numberOfChildren: numberOfChildren)
+    Genetic<Float>(mutationFactor: 100, numberOfChildren: numberOfChildren)
   }()
   
   init(_ delegate: GameBrainManagerDelegate? = nil) {
@@ -183,7 +183,7 @@ class GameBrainManager {
         let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
         
         mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: mapRange)
-        mappedCoinYPos = Float(coinYPos).map(from: min(playerPosY, 50 + frame.minY)...frame.midY, to: mapRange) //closer the better
+        mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.midY, to: mapRange) //closer the better
       }
       
       let inputs: [Float] = [1 - mappedXPos,

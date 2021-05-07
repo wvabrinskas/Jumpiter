@@ -22,7 +22,7 @@ extension HitTester {
     }
     
     if useFrame {
-      return node.frame.contains(hitTestObject.frame.origin)
+      return node.frame.intersects(hitTestObject.frame)
     }
     
     return nodeBody.allContactedBodies().contains(testerBody)

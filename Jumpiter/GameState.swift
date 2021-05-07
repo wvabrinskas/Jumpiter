@@ -16,6 +16,7 @@ public class GameState: ObservableObject {
   public var playerStartPosition: CGFloat = 0
   public var nearestObstacle: ObstacleHolder?
   public var nearestCoin: Coin?
+  
 
   private var level: Level?
   public var minStartingDistance: CGFloat = 450

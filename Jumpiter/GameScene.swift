@@ -16,6 +16,7 @@ class GameScene: SKScene, PhysicsManager {
   private var generationLabel: SKLabelNode?
   private var scoreLabel: SKLabelNode?
   private var aliveLabel: SKLabelNode?
+  private var bigWalletLabel: SKLabelNode?
 
   private var lastUpdateTime : TimeInterval = 0
   
@@ -69,6 +70,7 @@ class GameScene: SKScene, PhysicsManager {
     generationLabel = self.childNode(withName: "\\generation") as? SKLabelNode
     aliveLabel = self.childNode(withName: "\\galive") as? SKLabelNode
     scoreLabel = self.childNode(withName: "\\gscore") as? SKLabelNode
+    bigWalletLabel = self.childNode(withName: "\\g_big_wallet") as? SKLabelNode
   }
   
   override func didMove(to view: SKView) {
@@ -100,6 +102,7 @@ class GameScene: SKScene, PhysicsManager {
   private func setupLabels() {
     self.highScoreLabel?.text = "\(self.gameState.highestScore)"
     self.scoreLabel?.text = "\(self.gameState.currentGameScore)"
+    self.bigWalletLabel?.text = "\(self.gameState.highestWallet)"
 
     guard self.players.count <= 20 else {
       return
