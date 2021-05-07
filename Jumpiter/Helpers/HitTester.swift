@@ -10,15 +10,21 @@ import SpriteKit
 
 protocol HitTester  {
   var hitTestObject: SKNode { get }
-  func didHit(_ obj: SKNode?) -> Bool
+  func didHit(_ obj: SKNode?, useFrame: Bool) -> Bool
 }
 
 extension HitTester {
-  public func didHit(_ obj: SKNode?) -> Bool {
-    guard let node = obj  else {
+  public func didHit(_ obj: SKNode?, useFrame: Bool = false) -> Bool {
+    guard let node = obj,
+          let testerBody = hitTestObject.physicsBody,
+          let nodeBody = node.physicsBody  else {
       return true
     }
-
-    return node.frame.intersects(hitTestObject.frame)
+    
+    if useFrame {
+      return node.frame.contains(hitTestObject.frame.origin)
+    }
+    
+    return nodeBody.allContactedBodies().contains(testerBody)
   }
 }
