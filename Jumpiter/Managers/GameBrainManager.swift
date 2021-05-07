@@ -42,7 +42,7 @@ class GameBrainManager {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 10))
+      let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 100))
       
       let powerResult = pow(result, self.rankingExponent)
       

@@ -42,7 +42,6 @@ extension PhysicsManager {
       return
     }
     
-
     node.physicsBody = SKPhysicsBody(rectangleOf: size)
     node.physicsBody?.isDynamic = dynamic
     node.physicsBody?.mass = mass

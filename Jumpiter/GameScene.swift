@@ -223,7 +223,6 @@ class GameScene: SKScene, PhysicsManager {
         }
       }
 
-
       if !allPlayersDead {
         self.brainManager.feed(self.frame)
         self.levelManager.update()
