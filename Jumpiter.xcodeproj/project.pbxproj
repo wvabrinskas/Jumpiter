@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912297A825F996FD00BE5DCD /* GameBrainManager.swift */; };
 		916164892601780C009E240F /* obstacle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 916164882601780C009E240F /* obstacle.atlas */; };
+		918D014C26471C0300D9620A /* Moveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D014B26471C0300D9620A /* Moveable.swift */; };
 		918E252026016E8B00C65CA0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 918E251F26016E8B00C65CA0 /* player.atlas */; };
 		918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E2525260173CF00C65CA0 /* SpriteBuilder.swift */; };
 		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		912297A825F996FD00BE5DCD /* GameBrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrainManager.swift; sourceTree = "<group>"; };
 		916164882601780C009E240F /* obstacle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacle.atlas; sourceTree = "<group>"; };
+		918D014B26471C0300D9620A /* Moveable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moveable.swift; sourceTree = "<group>"; };
 		918E251F26016E8B00C65CA0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		918E2525260173CF00C65CA0 /* SpriteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuilder.swift; sourceTree = "<group>"; };
 		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +114,7 @@
 			children = (
 				918E2525260173CF00C65CA0 /* SpriteBuilder.swift */,
 				91B65F4F26181A0C00024237 /* HitTester.swift */,
+				918D014B26471C0300D9620A /* Moveable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */,
 				91AC4D4E25F807F000295955 /* ViewController.swift in Sources */,
 				91AC4D8725F80C3900295955 /* PlayerManager.swift in Sources */,
+				918D014C26471C0300D9620A /* Moveable.swift in Sources */,
 				91AC4D4C25F807F000295955 /* GameScene.swift in Sources */,
 				912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */,
 				91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */,

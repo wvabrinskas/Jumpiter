@@ -167,8 +167,8 @@ class GameBrainManager {
       var mappedYPos: Float = Float(mapRange.lowerBound)
       
       if let obstacle = self.state.nearestObstacle {
-        let obstacleXPos = obstacle.obstacle.position.x - (obstacle.obstacle.frame.size.width / 2)
-        let obstacleYPos = obstacle.obstacle.position.y + (obstacle.obstacle.frame.size.height / 2)
+        let obstacleXPos = obstacle.node.position.x - (obstacle.node.frame.size.width / 2)
+        let obstacleYPos = obstacle.node.position.y + (obstacle.node.frame.size.height / 2)
         
         mappedXPos = Float(obstacleXPos).map(from: playerPosX...frame.maxX, to: mapRange)
         mappedYPos = Float(obstacleYPos).map(from: frame.minY...frame.midY, to: mapRange)
@@ -179,8 +179,8 @@ class GameBrainManager {
       var mappedCoinYPos: Float = Float(mapRange.lowerBound)
       
       if let coin = self.state.nearestCoin {
-        let coinXPos: CGFloat = coin.coin.position.x - (coin.coin.frame.size.width / 2)
-        let coinYPos: CGFloat = coin.coin.position.y + (coin.coin.frame.size.height / 2)
+        let coinXPos: CGFloat = coin.node.position.x - (coin.node.frame.size.width / 2)
+        let coinYPos: CGFloat = coin.node.position.y + (coin.node.frame.size.height / 2)
         
         mappedCoinXPos = Float(coinXPos).map(from: playerPosX...frame.maxX, to: mapRange)
         mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.midY, to: mapRange) //closer the better

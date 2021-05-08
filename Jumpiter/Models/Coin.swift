@@ -13,30 +13,32 @@ public struct CoinMaker {
   var pos: CGPoint
 }
 
-public class Coin: SpriteBuilder,
+public class Coin: NodeHolder,
                    HitTester,
-                   PhysicsManager,
-                   Equatable {
-
+                   SpriteBuilder,
+                   PhysicsManager {
+  
+  public var moveableNode: SKNode?
+  public var minX: CGFloat?
+  public var actionName: String = "move"
   var hitTestObject: SKNode {
-    return coin
+    return node
   }
-  internal var spriteFrames: [SKTexture] = []
+  public var spriteFrames: [SKTexture] = []
   
   private var collected: Bool = false {
     didSet {
       DispatchQueue.main.async {
-        self.coin.physicsBody = nil
-        self.coin.removeFromParent()
+        self.node.physicsBody = nil
+        self.node.removeFromParent()
       }
     }
   }
   
   public var id: UUID = UUID()
   public var value: Float
-  public var coin: SKSpriteNode = SKSpriteNode()
+  public var node: SKSpriteNode = SKSpriteNode()
   public var position: CGPoint
-  private var minX: CGFloat?
 
   public static func == (lhs: Coin, rhs: Coin) -> Bool {
     lhs.id == rhs.id
@@ -48,40 +50,28 @@ public class Coin: SpriteBuilder,
     self.value = maker.value
     self.position = maker.pos
     self.buildCoin()
+    self.moveableNode = self.node
   }
   
   private func buildCoin() {
-    self.coin = self.buildSprite(atlas: "coin", texturePrefix: "coin_")
-    self.coin.position = self.position
-    self.addPhysics(to: coin, size: coin.frame.size, dynamic: false)
-    self.coin.physicsBody?.collisionBitMask = 0b0001
-    self.coin.physicsBody?.categoryBitMask = 0b0100
-    self.coin.physicsBody?.contactTestBitMask = ContactBitMasks.coin.rawValue
+    self.node = self.buildSprite(atlas: "coin", texturePrefix: "coin_")
+    self.node.position = self.position
+    self.addPhysics(to: node, size: node.frame.size, dynamic: false)
+    self.node.physicsBody?.collisionBitMask = 0b0001
+    self.node.physicsBody?.categoryBitMask = 0b0100
+    self.node.physicsBody?.contactTestBitMask = ContactBitMasks.coin.rawValue
 
-    self.animateSprite(coin)
+    self.animateSprite(node)
   }
   
   public func gotCoin() {
     self.collected = true
   }
-  
-  public func move() {
-    if let action = SKAction(named: "move") {
-      coin.run(action)
-    }
-  }
-  
-  public func shouldRemove() -> Bool {
-    guard let min = minX else {
-      return true
-    }
-    return (coin.position.x + coin.frame.size.width) < min
-  }
-  
+
   //dirty hack to remove coin from UI but not from the scene
   //will be removed when it goes off screen
   public func removePhysics() {
-    self.coin.isHidden = true
+    self.node.isHidden = true
   }
   
 }

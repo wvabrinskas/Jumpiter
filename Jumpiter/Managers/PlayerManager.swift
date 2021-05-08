@@ -25,7 +25,7 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
   public var color: NSColor = .white
   public var numOfJumps: Int = 0
   public var lastCollectedCoinId: UUID?
-  internal var spriteFrames: [SKTexture] = []
+  public var spriteFrames: [SKTexture] = []
 
   public init() {
     self.player = self.buildSprite(atlas: "player", texturePrefix: "player_")

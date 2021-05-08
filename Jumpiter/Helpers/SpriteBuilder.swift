@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 
 
-protocol SpriteBuilder: class {
+public protocol SpriteBuilder: class {
   var spriteFrames: [SKTexture] { get set }
   
   func buildSprite(atlas name: String, texturePrefix: String) -> SKSpriteNode
@@ -17,7 +17,7 @@ protocol SpriteBuilder: class {
 }
 
 extension SpriteBuilder {
-  func buildSprite(atlas name: String, texturePrefix: String) -> SKSpriteNode {
+  public func buildSprite(atlas name: String, texturePrefix: String) -> SKSpriteNode {
     let atlas = SKTextureAtlas(named: name)
     var walkFrames: [SKTexture] = []
 
@@ -32,7 +32,7 @@ extension SpriteBuilder {
     return SKSpriteNode(texture: firstFrameTexture)
   }
   
-  func animateSprite(_ sprite: SKSpriteNode, interval: TimeInterval = 0.1) {
+  public func animateSprite(_ sprite: SKSpriteNode, interval: TimeInterval = 0.1) {
     sprite.run(SKAction.repeatForever(
                 SKAction.animate(with: self.spriteFrames,
                                  timePerFrame: interval,

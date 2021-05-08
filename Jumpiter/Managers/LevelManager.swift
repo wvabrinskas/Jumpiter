@@ -36,6 +36,13 @@ public class LevelManager: PhysicsManager {
   private weak var scene: SKScene?
   private var obstacles: [ObstacleHolder] = []
   private var coins: [Coin] = []
+  private var discardedNodes: [Moveable] = []
+  
+  enum UpdateState {
+    case obstacles
+    case coins
+    case discarded
+  }
   
   public init(level: Level, scene: SKScene?) {
     self.level = level
@@ -66,7 +73,7 @@ public class LevelManager: PhysicsManager {
                                                     y: ground.frame.maxY))
       
       obstacles.append(obstacle)
-      scene.addChild(obstacle.obstacle)
+      scene.addChild(obstacle.node)
     }
   }
   
@@ -78,46 +85,21 @@ public class LevelManager: PhysicsManager {
       let maker = CoinMaker(pos: point)
       let coin = Coin(maker: maker, scene: scene)
       coins.append(coin)
-      scene.addChild(coin.coin)
+      scene.addChild(coin.node)
     }
   }
   
   public func nearestObstacle() -> ObstacleHolder? {
-    let adjustedPlayerPosition = GameState.shared.playerStartPosition
-    
-    let first = self.obstacles.first { (obst) -> Bool in
-      let obstaclePos = obst.obstacle.position.x + obst.obstacle.frame.size.width
-      if obstaclePos > adjustedPlayerPosition {
-        return true
-      } else {
-        return false
-      }
-    }
-
-    return first
+    return self.obstacles.first
   }
   
   public func nearestCoin() -> Coin? {
-    let adjustedPlayerPosition = GameState.shared.playerStartPosition
-    
-    let first = self.coins.first { (obst) -> Bool in
-      let obstaclePos = obst.coin.position.x + obst.coin.frame.size.width
-      if obstaclePos > adjustedPlayerPosition {
-        return true
-      } else {
-        return false
-      }
-    }
-
-    return first
+    return self.coins.first
   }
   
-  public func collectedCoin() {
-    if let nearest = self.nearestCoin(),
-       let index = self.coins.firstIndex(of: nearest) {
-      nearest.coin.removeFromParent()
-      self.coins.remove(at: index)
-    }
+  public func collectedCoin(coin: Coin) {
+    coin.node.removeFromParent()
+    self.coins = self.coins.filter({ $0.id != coin.id })
   }
   
   public func didHitObstacle(_ obj: SKNode?) -> Bool {
@@ -127,60 +109,82 @@ public class LevelManager: PhysicsManager {
     return false
   }
   
-  public func didHitCoin(_ obj: SKNode?) -> Bool {
-    if let nearest = self.nearestCoin() {
-      return nearest.didHit(obj, useFrame: true)
-    }
-    return false
-  }
-  
   public func reset() {
     self.obstacles.forEach { (obs) in
-      obs.obstacle.removeFromParent()
+      obs.node.removeFromParent()
     }
     self.obstacles.removeAll()
+    
+    self.coins.forEach { coin in
+      coin.node.removeFromParent()
+    }
+    self.coins.removeAll()
+    
+    self.discardedNodes.forEach { discarded in
+      discarded.moveableNode?.removeFromParent()
+    }
+    self.discardedNodes.removeAll()
   }
-  
   
   //gets called once a frame
   public func update() {
+    self.state(update: .obstacles)
+    self.state(update: .coins)
+    self.state(update: .discarded)
+    
     let distance = CGFloat.random(in: GameState.shared.getDistanceRange())
 
-    if let last = self.obstacles.last, let scene = last.obstacle.scene {
-      if scene.frame.maxX - abs(last.obstacle.position.x) > distance {
+    if let last = self.obstacles.last, let scene = self.scene {
+      if scene.frame.maxX - abs(last.node.position.x) > distance {
         self.addObstacle()
     
-        let coinX = scene.frame.maxX + 100
+        let coinX = scene.frame.maxX + (distance / 2)
         self.addCoin(x: coinX)
       }
     } else {
       self.addObstacle()
     }
-    
-    var copyObstacles = self.obstacles
-    var copyCoins = self.coins
-
-    for i in 0..<self.coins.count {
-      let coin = self.coins[i]
-      coin.move()
-      
-      if coin.shouldRemove() {
-        coin.coin.removeFromParent()
-        copyCoins.remove(at: i)
-      }
+  }
+  
+  func state(update: UpdateState) {
+    switch update {
+    case .coins:
+      self.coins = self.update(array: self.coins)
+    case .obstacles:
+      self.obstacles = self.update(array: self.obstacles)
+    case .discarded:
+      self.updateDiscarded()
     }
+  }
+  
+  func updateDiscarded() {
+    var copyObstacles = discardedNodes
     
-    self.coins = copyCoins
-    
-    for i in 0..<self.obstacles.count {
-      let obstacle = self.obstacles[i]
-      obstacle.move()
+    for i in 0..<discardedNodes.count {
+      let node = discardedNodes[i]
+      node.move()
       
-      if obstacle.shouldRemove() {
-        obstacle.obstacle.removeFromParent()
+      if node.shouldRemove() {
+        node.moveableNode?.removeFromParent()
         copyObstacles.remove(at: i)
       }
     }
-    self.obstacles = copyObstacles
+    discardedNodes = copyObstacles
+  }
+
+  func update<T: NodeHolder>(array: [T]) -> [T] {
+    let playerPosition = GameState.shared.playerStartPosition
+    var copyObstacles = array
+    
+    for i in 0..<array.count {
+      let obstacle = array[i]
+      obstacle.move()
+     
+      if obstacle.node.position.x + obstacle.node.frame.size.width < playerPosition {
+        copyObstacles.remove(at: i)
+        self.discardedNodes.append(obstacle)
+      }
+    }
+    return copyObstacles
   }
 }
