@@ -55,7 +55,6 @@ public class LevelManager: PhysicsManager {
     self.addPhysics(to: self.ground, size: self.ground.frame.size, dynamic: false)
     self.ground.physicsBody?.categoryBitMask = 0b0001
     self.ground.physicsBody?.contactTestBitMask = ContactBitMasks.ground.rawValue
-
   }
   
   public func setup() {
@@ -99,7 +98,9 @@ public class LevelManager: PhysicsManager {
   
   public func collectedCoin(coin: Coin) {
     coin.node.removeFromParent()
-    self.coins = self.coins.filter({ $0.id != coin.id })
+    if self.coins.contains(coin) {
+      self.coins = self.coins.filter({ $0.id != coin.id })
+    }
   }
   
   public func didHitObstacle(_ obj: SKNode?) -> Bool {

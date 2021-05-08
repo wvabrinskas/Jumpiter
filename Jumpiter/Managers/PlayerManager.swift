@@ -9,7 +9,11 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-public class PlayerManager: PhysicsManager, SpriteBuilder {
+public class PlayerManager: PhysicsManager,
+                            SpriteBuilder,
+                            Emitter {
+
+  var storedParticles: SKEmitterNode?
   public var player: SKSpriteNode = SKSpriteNode()
   public var isDead: Bool = false {
     didSet {
@@ -26,7 +30,10 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
   public var numOfJumps: Int = 0
   public var lastCollectedCoinId: UUID?
   public var spriteFrames: [SKTexture] = []
-
+  var emitterName: String {
+   return "magic.sks"
+  }
+  
   public init() {
     self.player = self.buildSprite(atlas: "player", texturePrefix: "player_")
     self.player.setScale(0.4)
@@ -38,6 +45,10 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
     self.player.physicsBody?.categoryBitMask = 0b0010
     self.player.physicsBody?.collisionBitMask = 0b0001
     self.player.physicsBody?.contactTestBitMask = ContactBitMasks.player.rawValue
+    self.color = NSColor.init(red: CGFloat.random(in: 0...1),
+                              green: CGFloat.random(in: 0...1),
+                              blue: CGFloat.random(in: 0...1),
+                              alpha: 1.0)
   }
   
   public func setOff(off: Bool) {
@@ -63,6 +74,8 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
     
     player.position = CGPoint(x: GameState.shared.playerStartPosition , y: 0)
     self.animateSprite(self.player)
+    let offset = CGPoint(x: 100, y: -60)
+    self.emit(node: self.player, color: self.color, offset: offset)
   }
   
   public func updateCoin(_ value: Float, _ id: UUID) {
@@ -74,7 +87,7 @@ public class PlayerManager: PhysicsManager, SpriteBuilder {
     GameState.shared.setHighestWallet(wallet: wallet)
   }
   
-  public func updateScore() {
+  public func update() {
     score += 1
     GameState.shared.setHighestScore(score: score)
   }

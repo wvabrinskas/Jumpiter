@@ -10,6 +10,9 @@
 		912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912297A825F996FD00BE5DCD /* GameBrainManager.swift */; };
 		916164892601780C009E240F /* obstacle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 916164882601780C009E240F /* obstacle.atlas */; };
 		918D014C26471C0300D9620A /* Moveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D014B26471C0300D9620A /* Moveable.swift */; };
+		918D014F26472C7900D9620A /* magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = 918D014D26472C7900D9620A /* magic.sks */; };
+		918D015026472C7900D9620A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918D014E26472C7900D9620A /* Assets.xcassets */; };
+		918D015226472CE800D9620A /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D015126472CE800D9620A /* Emitter.swift */; };
 		918E252026016E8B00C65CA0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 918E251F26016E8B00C65CA0 /* player.atlas */; };
 		918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E2525260173CF00C65CA0 /* SpriteBuilder.swift */; };
 		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
@@ -54,6 +57,9 @@
 		912297A825F996FD00BE5DCD /* GameBrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrainManager.swift; sourceTree = "<group>"; };
 		916164882601780C009E240F /* obstacle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacle.atlas; sourceTree = "<group>"; };
 		918D014B26471C0300D9620A /* Moveable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moveable.swift; sourceTree = "<group>"; };
+		918D014D26472C7900D9620A /* magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = magic.sks; sourceTree = "<group>"; };
+		918D014E26472C7900D9620A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		918D015126472CE800D9620A /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		918E251F26016E8B00C65CA0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		918E2525260173CF00C65CA0 /* SpriteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuilder.swift; sourceTree = "<group>"; };
 		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +121,7 @@
 				918E2525260173CF00C65CA0 /* SpriteBuilder.swift */,
 				91B65F4F26181A0C00024237 /* HitTester.swift */,
 				918D014B26471C0300D9620A /* Moveable.swift */,
+				918D015126472CE800D9620A /* Emitter.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -122,6 +129,8 @@
 		91AC4D3925F807F000295955 = {
 			isa = PBXGroup;
 			children = (
+				918D014D26472C7900D9620A /* magic.sks */,
+				918D014E26472C7900D9620A /* Assets.xcassets */,
 				91AC4D4425F807F000295955 /* Jumpiter */,
 				91AC4D5D25F807F300295955 /* JumpiterTests */,
 				91AC4D6825F807F300295955 /* JumpiterUITests */,
@@ -312,11 +321,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				916164892601780C009E240F /* obstacle.atlas in Resources */,
+				918D014F26472C7900D9620A /* magic.sks in Resources */,
 				91AC4D4825F807F000295955 /* GameScene.sks in Resources */,
 				91AC4D5025F807F300295955 /* Assets.xcassets in Resources */,
 				91B65F5E26181E7600024237 /* coin.atlas in Resources */,
 				918E252026016E8B00C65CA0 /* player.atlas in Resources */,
 				91AC4D4A25F807F000295955 /* Actions.sks in Resources */,
+				918D015026472C7900D9620A /* Assets.xcassets in Resources */,
 				91AC4D5325F807F300295955 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +361,7 @@
 				918D014C26471C0300D9620A /* Moveable.swift in Sources */,
 				91AC4D4C25F807F000295955 /* GameScene.swift in Sources */,
 				912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */,
+				918D015226472CE800D9620A /* Emitter.swift in Sources */,
 				91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */,
 				91AC4D9825F813A900295955 /* LevelManager.swift in Sources */,
 				91B65F4A2618169800024237 /* Coin.swift in Sources */,

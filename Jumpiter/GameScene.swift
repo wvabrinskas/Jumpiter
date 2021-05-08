@@ -214,7 +214,7 @@ class GameScene: SKScene, PhysicsManager {
           if round(currentTime).truncatingRemainder(dividingBy: 1) == 0 &&
               self.lastUpdateTime != round(currentTime) &&
               !manager.isDead {
-            manager.updateScore()
+            manager.update()
           }
         }
         if !manager.isDead {
