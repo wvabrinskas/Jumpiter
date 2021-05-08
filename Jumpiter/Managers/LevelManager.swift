@@ -26,7 +26,7 @@ public struct Level {
   var groundSize: CGSize
   var minStartingDistance: CGFloat = 450
   var maxStartingDistance: CGFloat = 550
-  @RangeCapped(range: 0...100) var coinRandomness: Int = 1
+  @RangeCapped(range: 0...100) var coinRandomness: Int = 4
 }
  
 public class LevelManager: PhysicsManager {
@@ -151,8 +151,14 @@ public class LevelManager: PhysicsManager {
     switch update {
     case .coins:
       self.coins = self.update(array: self.coins)
+      if self.coins.count == 0 {
+        GameState.shared.nearestCoin = nil
+      }
     case .obstacles:
       self.obstacles = self.update(array: self.obstacles)
+      if self.obstacles.count == 0 {
+        GameState.shared.nearestObstacle = nil
+      }
     case .discarded:
       self.updateDiscarded()
     }
