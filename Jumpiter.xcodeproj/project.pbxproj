@@ -13,6 +13,8 @@
 		918D014F26472C7900D9620A /* magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = 918D014D26472C7900D9620A /* magic.sks */; };
 		918D015026472C7900D9620A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918D014E26472C7900D9620A /* Assets.xcassets */; };
 		918D015226472CE800D9620A /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D015126472CE800D9620A /* Emitter.swift */; };
+		918D0154264A0AE800D9620A /* DevWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D0153264A0AE800D9620A /* DevWindowController.swift */; };
+		918D0157264A0DEB00D9620A /* DevViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D0156264A0DEB00D9620A /* DevViewController.swift */; };
 		918E252026016E8B00C65CA0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 918E251F26016E8B00C65CA0 /* player.atlas */; };
 		918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918E2525260173CF00C65CA0 /* SpriteBuilder.swift */; };
 		91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91AC4D4525F807F000295955 /* AppDelegate.swift */; };
@@ -60,6 +62,8 @@
 		918D014D26472C7900D9620A /* magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = magic.sks; sourceTree = "<group>"; };
 		918D014E26472C7900D9620A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		918D015126472CE800D9620A /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
+		918D0153264A0AE800D9620A /* DevWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevWindowController.swift; sourceTree = "<group>"; };
+		918D0156264A0DEB00D9620A /* DevViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevViewController.swift; sourceTree = "<group>"; };
 		918E251F26016E8B00C65CA0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		918E2525260173CF00C65CA0 /* SpriteBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteBuilder.swift; sourceTree = "<group>"; };
 		91AC4D4225F807F000295955 /* Jumpiter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jumpiter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		918D0155264A0AF500D9620A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				918D0153264A0AE800D9620A /* DevWindowController.swift */,
+				918D0156264A0DEB00D9620A /* DevViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		918E2524260173C000C65CA0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +164,7 @@
 		91AC4D4425F807F000295955 /* Jumpiter */ = {
 			isa = PBXGroup;
 			children = (
+				918D0155264A0AF500D9620A /* Controllers */,
 				91B65F482618168C00024237 /* Models */,
 				918E2524260173C000C65CA0 /* Helpers */,
 				916164882601780C009E240F /* obstacle.atlas */,
@@ -353,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				918D0157264A0DEB00D9620A /* DevViewController.swift in Sources */,
 				91F5F8DE25F86AC3007B67FE /* GameState.swift in Sources */,
 				91F5F8D625F82947007B67FE /* ObstacleHolder.swift in Sources */,
 				918E2526260173CF00C65CA0 /* SpriteBuilder.swift in Sources */,
@@ -365,6 +380,7 @@
 				91AC4D4625F807F000295955 /* AppDelegate.swift in Sources */,
 				91AC4D9825F813A900295955 /* LevelManager.swift in Sources */,
 				91B65F4A2618169800024237 /* Coin.swift in Sources */,
+				918D0154264A0AE800D9620A /* DevWindowController.swift in Sources */,
 				91B65F5026181A0C00024237 /* HitTester.swift in Sources */,
 				91AC4D9025F80CB900295955 /* PhysicsManager.swift in Sources */,
 			);

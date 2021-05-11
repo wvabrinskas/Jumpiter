@@ -17,7 +17,7 @@ public class GameState: ObservableObject {
   public var nearestObstacle: ObstacleHolder?
   public var nearestCoin: Coin?
   
-  private var level: Level?
+  private var currentLevel: Level?
   
   @Published public var gameDone: Bool = false
   @Published public var players: [PlayerManager] = []
@@ -31,7 +31,7 @@ public class GameState: ObservableObject {
   }
   
   public func setLevel(level: Level) {
-    self.level = level
+    self.currentLevel = level
   }
   
   public func setHighestWallet(wallet: Float) {

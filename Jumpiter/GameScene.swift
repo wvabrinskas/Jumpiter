@@ -21,9 +21,16 @@ class GameScene: SKScene, PhysicsManager {
   private var lastUpdateTime : TimeInterval = 0
   
   private var players: [PlayerManager] = []
+  
   private var playerCancellable: AnyCancellable?
+  private var brainStatsCancellale: AnyCancellable?
+  
   private let brainManager = GameBrainManager()
   private let aiControlled = true
+  private lazy var devController: DevWindowController = {
+    let frame = self.frame
+    return DevWindowController(frame: frame)
+  }()
   
   private lazy var levelManager: LevelManager = {
     var size: CGSize = .zero
@@ -37,7 +44,6 @@ class GameScene: SKScene, PhysicsManager {
                       variableObjectHeight: false,
                       variableObstacleDistance: false)
     
-    GameState.shared.setLevel(level: level)
     return LevelManager(level: level, scene: self)
   }()
 
@@ -55,7 +61,7 @@ class GameScene: SKScene, PhysicsManager {
 
     self.lastUpdateTime = 0
     
-    self.playerCancellable = self.gameState.$players.sink(receiveValue: { (value) in
+    self.playerCancellable = self.gameState.$players.sink(receiveValue: { value in
       guard value.count > 0 else {
         return
       }
@@ -65,7 +71,7 @@ class GameScene: SKScene, PhysicsManager {
       }
       self.reset()
     })
-    
+        
     brainManager.setup()
     brainManager.delegate = self
     
@@ -87,21 +93,30 @@ class GameScene: SKScene, PhysicsManager {
     self.levelManager.setup()
 
     self.setupLabels()
+    
+    self.brainStatsCancellale = self.brainManager.$stats.sink(receiveValue: { stats in
+      self.updateDevController(stats)
+    })
+    
   }
   
   override func keyDown(with event: NSEvent) {
-    guard !aiControlled else {
-      return
-    }
-    
+//    guard !aiControlled else {
+//      return
+//    }
+//
     switch event.keyCode {
     case Keys.space.rawValue, Keys.up.rawValue: //space
       self.jump()
     case Keys.r.rawValue:
-      self.reset()
+      self.devController.show()
     default:
       print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
     }
+  }
+  
+  private func updateDevController<T>(_ stats: [Stat<T>]) {
+    self.devController.setStats(stats)
   }
   
   private func setupLabels() {

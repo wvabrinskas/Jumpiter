@@ -85,6 +85,8 @@ public class LevelManager: PhysicsManager {
     maxStartingDistance = level.maxStartingDistance
     minObstacleHeight = level.minObstacleHeight
     maxObstacleHeight = level.maxObstacleHeight
+    
+    GameState.shared.setLevel(level: level)
   }
   
   private func addObstacle() {

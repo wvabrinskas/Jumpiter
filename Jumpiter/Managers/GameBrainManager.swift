@@ -10,12 +10,17 @@ import Neuron
 import Genetic
 import Combine
 
-protocol GameBrainManagerDelegate: class {
+public struct Stat<T> {
+  public var label: String
+  public var stat: T
+}
+
+protocol GameBrainManagerDelegate: AnyObject {
   func jump(index: Int)
   func resetGame(_ highestScore: Double, _ generation: Int)
 }
 
-class GameBrainManager {
+class GameBrainManager: ObservableObject {
   private let state: GameState = .shared
   private let rankingExponent = 2.0
   private let inputs = 4
@@ -27,6 +32,7 @@ class GameBrainManager {
   private var gameDoneCancellable: AnyCancellable?
   private var gameOver: Bool = false
   public weak var delegate: GameBrainManagerDelegate?
+  @Published public var stats: [Stat<Float>] = []
   
   private lazy var gene: Genetic = {
     Genetic<Float>(mutationFactor: 10, numberOfChildren: numberOfChildren)
@@ -154,6 +160,28 @@ class GameBrainManager {
     return brain
   }
   
+  private func publishStats(_ stats: [Float]) {
+    var newStats: [Stat<Float>] = []
+    
+    let statLabels = ["Obstacle X",
+                      "Obstacle Y",
+                      "Coin X",
+                      "Coin Y"]
+    
+    guard statLabels.count == stats.count else {
+      print("ERROR: labels count does not match stats count")
+      return
+    }
+    
+    for i in 0..<stats.count {
+      let stat = stats[i]
+      let label = statLabels[i]
+      newStats.append(Stat(label: label, stat: stat))
+    }
+    
+    self.stats = newStats
+  }
+  
   public func feed(_ frame: CGRect) {
     let mapRange: ClosedRange<CGFloat> = 0...1
     
@@ -189,7 +217,9 @@ class GameBrainManager {
                              mappedYPos,
                              mappedCoinXPos,
                              mappedCoinYPos]
-            
+    
+      self.publishStats(inputs)
+      
       let brain = brains[i]
       let results = brain.feed(input: inputs)
       //only one output
