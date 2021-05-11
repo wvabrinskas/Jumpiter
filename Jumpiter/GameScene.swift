@@ -95,16 +95,16 @@ class GameScene: SKScene, PhysicsManager {
     self.setupLabels()
     
     self.brainStatsCancellale = self.brainManager.$stats.sink(receiveValue: { stats in
-      self.updateDevController(stats)
+      //self.updateDevController(stats)
     })
     
   }
   
   override func keyDown(with event: NSEvent) {
-//    guard !aiControlled else {
-//      return
-//    }
-//
+    guard !aiControlled else {
+      return
+    }
+
     switch event.keyCode {
     case Keys.space.rawValue, Keys.up.rawValue: //space
       self.jump()
