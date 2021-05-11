@@ -32,8 +32,11 @@ class GameScene: SKScene, PhysicsManager {
     }
     
     let level = Level(groundSize: size,
-                      minStartingDistance: 500,
-                      maxStartingDistance: 600)
+                      obstacleDistance: 600,
+                      obstacleHeight: 40, 
+                      variableObjectHeight: false,
+                      variableObstacleDistance: false)
+    
     GameState.shared.setLevel(level: level)
     return LevelManager(level: level, scene: self)
   }()

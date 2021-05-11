@@ -24,19 +24,34 @@ import GameplayKit
 
 public struct Level {
   var groundSize: CGSize
+  var obstacleDistance: CGFloat = 500
+  var obstacleHeight: CGFloat = 30
   var minStartingDistance: CGFloat = 450
   var maxStartingDistance: CGFloat = 550
+  var minObstacleHeight: CGFloat = 5
+  var maxObstacleHeight: CGFloat = 50
+  var variableObjectHeight: Bool = true
+  var variableObstacleDistance: Bool = true
+  
   @RangeCapped(range: 0...100) var coinRandomness: Int = 4
 }
  
 public class LevelManager: PhysicsManager {
   public var ground: SKShapeNode
-  public var level: Level
+  public var level: Level {
+    didSet {
+      self.setLevel()
+    }
+  }
   
   private weak var scene: SKScene?
   private var obstacles: [ObstacleHolder] = []
   private var coins: [Coin] = []
   private var discardedNodes: [Moveable] = []
+  private var minStartingDistance: CGFloat = 450
+  private var maxStartingDistance: CGFloat = 550
+  private var minObstacleHeight: CGFloat = 5
+  private var maxObstacleHeight: CGFloat = 50
   
   enum UpdateState {
     case obstacles
@@ -65,11 +80,23 @@ public class LevelManager: PhysicsManager {
     }
   }
   
+  private func setLevel() {
+    minStartingDistance = level.minStartingDistance
+    maxStartingDistance = level.maxStartingDistance
+    minObstacleHeight = level.minObstacleHeight
+    maxObstacleHeight = level.maxObstacleHeight
+  }
+  
   private func addObstacle() {
     if let scene = scene {
+      let height = self.level.variableObjectHeight ?
+                     CGFloat.random(in: self.getHeightRange()) :
+                     level.obstacleHeight
+      
       let obstacle = ObstacleHolder(scene: scene,
                                     origin: CGPoint(x: (scene.frame.maxX),
-                                                    y: ground.frame.maxY))
+                                                    y: ground.frame.maxY),
+                                    height: height)
       
       obstacles.append(obstacle)
       scene.addChild(obstacle.node)
@@ -125,6 +152,8 @@ public class LevelManager: PhysicsManager {
       discarded.moveableNode?.removeFromParent()
     }
     self.discardedNodes.removeAll()
+    
+    self.setLevel()
   }
   
   //gets called once a frame
@@ -133,7 +162,9 @@ public class LevelManager: PhysicsManager {
     self.state(update: .coins)
     self.state(update: .discarded)
     
-    let distance = CGFloat.random(in: GameState.shared.getDistanceRange())
+    let distance = self.level.variableObstacleDistance ?
+                   CGFloat.random(in: self.getDistanceRange()) :
+                   level.obstacleDistance
 
     if let last = self.obstacles.last, let scene = self.scene {
       if scene.frame.maxX - abs(last.node.position.x) > distance {
@@ -193,5 +224,27 @@ public class LevelManager: PhysicsManager {
       }
     }
     return copyObstacles
+  }
+  
+  public func getDistanceRange() -> ClosedRange<CGFloat> {
+    let currentScore = GameState.shared.currentGameScore
+    
+    if currentScore % 20 == 0 && minStartingDistance > 250 && maxStartingDistance > 300 {
+      self.minStartingDistance -= 1
+      self.maxStartingDistance -= 1
+    }
+        
+    return minStartingDistance...maxStartingDistance
+  }
+  
+  public func getHeightRange() -> ClosedRange<CGFloat> {
+    let currentScore = GameState.shared.currentGameScore
+    
+    if currentScore % 5 == 0 && minObstacleHeight < 75 && maxObstacleHeight < 200 {
+      self.minObstacleHeight += 5
+      self.maxObstacleHeight += 5
+    }
+        
+    return minObstacleHeight...maxObstacleHeight
   }
 }

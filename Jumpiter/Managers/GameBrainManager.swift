@@ -185,9 +185,9 @@ class GameBrainManager {
         mappedCoinYPos = Float(coinYPos).map(from: frame.minY...frame.midY, to: mapRange) //closer the better
       }
       
-      let inputs: [Float] = [Float(mapRange.upperBound) - mappedXPos,
+      let inputs: [Float] = [mappedXPos,
                              mappedYPos,
-                             Float(mapRange.upperBound) - mappedCoinXPos,
+                             mappedCoinXPos,
                              mappedCoinYPos]
             
       let brain = brains[i]

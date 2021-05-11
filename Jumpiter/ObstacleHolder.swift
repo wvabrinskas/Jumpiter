@@ -34,10 +34,8 @@ public class ObstacleHolder: NodeHolder,
   }
   public var node: SKSpriteNode = SKSpriteNode()
   
-  public init(scene: SKScene, origin: CGPoint) {
+  public init(scene: SKScene, origin: CGPoint, height: CGFloat) {
     minX = -scene.frame.width
-
-    let height = CGFloat.random(in: GameState.shared.getHeightRange())
     
     let newObstacle = self.buildSprite(atlas: "obstacle", texturePrefix: "electric_")
     newObstacle.size = CGSize(width: 100,
