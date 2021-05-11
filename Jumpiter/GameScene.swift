@@ -17,16 +17,13 @@ class GameScene: SKScene, PhysicsManager {
   private var scoreLabel: SKLabelNode?
   private var aliveLabel: SKLabelNode?
   private var bigWalletLabel: SKLabelNode?
-
   private var lastUpdateTime : TimeInterval = 0
-  
   private var players: [PlayerManager] = []
-  
   private var playerCancellable: AnyCancellable?
   private var brainStatsCancellale: AnyCancellable?
-  
   private let brainManager = GameBrainManager()
   private let aiControlled = true
+  
   private lazy var devController: DevWindowController = {
     let frame = self.frame
     return DevWindowController(frame: frame)
@@ -39,10 +36,11 @@ class GameScene: SKScene, PhysicsManager {
     }
     
     let level = Level(groundSize: size,
-                      obstacleDistance: 600,
-                      obstacleHeight: 40, 
+                      obstacleDistance: 500,
+                      obstacleHeight: 40,
                       variableObjectHeight: false,
-                      variableObstacleDistance: false)
+                      variableObstacleDistance: false,
+                      coinRandomness: 2)
     
     return LevelManager(level: level, scene: self)
   }()

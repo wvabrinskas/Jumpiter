@@ -108,7 +108,7 @@ public class LevelManager: PhysicsManager {
   private func addCoin(x: CGFloat) {
     let random = Int.random(in: 0...level.coinRandomness)
     if let scene = scene, random == 1 {
-      let randomY = CGFloat.random(in: 150 + scene.frame.minY...scene.frame.midY)
+      let randomY = CGFloat.random(in: scene.frame.midY - 100...scene.frame.midY + 50)
       let point = CGPoint(x: x, y: randomY)
       let maker = CoinMaker(pos: point)
       let coin = Coin(maker: maker, scene: scene)

@@ -48,8 +48,9 @@ class GameBrainManager: ObservableObject {
       
       let player = self.state.players[index]
       
-      let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 20))
-      
+      //let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 20))
+      let result: Double = Double(player.score) + Double(player.wallet)
+
       let powerResult = pow(result, self.rankingExponent)
       
       return powerResult
