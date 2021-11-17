@@ -27,7 +27,7 @@ class GameBrainManager: ObservableObject {
   private let hiddenNodes = 3
   private let outputs = 2
   private let numOfHiddenLayers = 1
-  private let numberOfChildren = 100
+  private let numberOfChildren = 200
   private var brains: [Brain] = []
   private var gameDoneCancellable: AnyCancellable?
   private var gameOver: Bool = false

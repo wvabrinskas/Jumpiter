@@ -38,8 +38,8 @@ class GameScene: SKScene, PhysicsManager {
     let level = Level(groundSize: size,
                       obstacleDistance: 500,
                       obstacleHeight: 40,
-                      variableObjectHeight: false,
-                      variableObstacleDistance: false,
+                      variableObjectHeight: true,
+                      variableObstacleDistance: true,
                       coinRandomness: 2)
     
     return LevelManager(level: level, scene: self)
