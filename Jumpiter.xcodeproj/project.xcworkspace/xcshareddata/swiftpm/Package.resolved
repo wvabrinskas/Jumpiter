@@ -24,8 +24,8 @@
         "repositoryURL": "git@github.com:wvabrinskas/Neuron.git",
         "state": {
           "branch": null,
-          "revision": "28062fd278c9e6f95800928d05f7bd4ab3d967c8",
-          "version": "1.3.4"
+          "revision": "2ab9afd5f446f4d75466f687aa6bb6abeca051cd",
+          "version": "1.4.0"
         }
       }
     ]
