@@ -1,34 +1,41 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Genetic",
-        "repositoryURL": "git@github.com:wvabrinskas/Genetic.git",
-        "state": {
-          "branch": null,
-          "revision": "54ca1f348ec3cc1495c011955c202af61dfca784",
-          "version": "1.0.7"
-        }
-      },
-      {
-        "package": "Logger",
-        "repositoryURL": "https://github.com/wvabrinskas/Logger.git",
-        "state": {
-          "branch": null,
-          "revision": "0eec8aa2278ee03954226bc1a3173038888e79b3",
-          "version": "1.0.6"
-        }
-      },
-      {
-        "package": "Neuron",
-        "repositoryURL": "git@github.com:wvabrinskas/Neuron.git",
-        "state": {
-          "branch": null,
-          "revision": "28062fd278c9e6f95800928d05f7bd4ab3d967c8",
-          "version": "1.3.4"
-        }
+  "pins" : [
+    {
+      "identity" : "genetic",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:wvabrinskas/Genetic.git",
+      "state" : {
+        "revision" : "54ca1f348ec3cc1495c011955c202af61dfca784",
+        "version" : "1.0.7"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "logger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wvabrinskas/Logger.git",
+      "state" : {
+        "revision" : "0eec8aa2278ee03954226bc1a3173038888e79b3",
+        "version" : "1.0.6"
+      }
+    },
+    {
+      "identity" : "neuron",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:wvabrinskas/Neuron.git",
+      "state" : {
+        "revision" : "a78149fc4fe0200e719222ee60471f5104adcc0f",
+        "version" : "1.6.0"
+      }
+    },
+    {
+      "identity" : "numswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wvabrinskas/NumSwift.git",
+      "state" : {
+        "revision" : "79c594883ce226df6c784a825a45ac033c648dac",
+        "version" : "1.1.0"
+      }
+    }
+  ],
+  "version" : 2
 }

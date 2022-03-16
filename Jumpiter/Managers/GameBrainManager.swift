@@ -25,7 +25,7 @@ class GameBrainManager: ObservableObject {
   private let rankingExponent = 2.0
   private let inputs = 4
   private let hiddenNodes = 3
-  private let outputs = 2
+  private let outputs = 1
   private let numOfHiddenLayers = 1
   private let numberOfChildren = 200
   private var brains: [Brain] = []
@@ -49,7 +49,7 @@ class GameBrainManager: ObservableObject {
       let player = self.state.players[index]
       
       //let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 20))
-      let result: Double = Double(player.score) + Double(player.wallet)
+      let result: Double = Double(player.score) + (Double(player.wallet) * 0.5)
 
       let powerResult = pow(result, self.rankingExponent)
       
@@ -57,7 +57,7 @@ class GameBrainManager: ObservableObject {
     }
     
     gene.mutationFunction = { () -> Float in
-      return Float.random(in: 0...1)
+      return Float.random(in: -1...1)
     }
     
     var initialPop: [[Float]] = []
@@ -90,47 +90,44 @@ class GameBrainManager: ObservableObject {
   }
   
   private func flattenedWeights(_ brain: Brain) -> [Float] {
-    var flattenedWeights: [Float] = []
-    
-    for lobe in brain.lobes {
-      lobe.neurons.forEach { (neuron) in
-        let weights = neuron.inputs.map({ $0.weight })
-        flattenedWeights.append(contentsOf: weights)
-      }
-    }
-    
-    return flattenedWeights
+    let weights = brain.weights().flatMap { $0.flatMap { $0 }}
+    return weights
   }
   
   private func replace(_ weights: [Float], for brain: Brain) {
-    //THIS IS HORRIBLE FIX THIS
-    
-    //turn weights into 2D array
     var copyWeights = weights
-    var workingWeights: [[Float]] = []
+    var workingWeights: [[[Float]]] = []
+    
+    var inputWeights: [[Float]] = []
     
     for i in 0..<inputs {
-      workingWeights.append([copyWeights[i]])
+      inputWeights.append([copyWeights[i]])
       copyWeights.remove(at: i)
     }
+    workingWeights.append(inputWeights)
     
     for i in 0..<numOfHiddenLayers {
+      var hiddenWeights: [[Float]] = []
+
       for _ in 0..<hiddenNodes {
         if i > 0 {
-          workingWeights.append(Array(copyWeights[0..<hiddenNodes]))
+          hiddenWeights.append(Array(copyWeights[0..<hiddenNodes]))
           copyWeights.removeSubrange(0..<hiddenNodes)
         } else {
-          workingWeights.append(Array(copyWeights[0..<inputs]))
+          hiddenWeights.append(Array(copyWeights[0..<inputs]))
           copyWeights.removeSubrange(0..<inputs)
         }
-        
       }
+      workingWeights.append(hiddenWeights)
     }
     
+    var outputWeights: [[Float]] = []
     for _ in 0..<outputs {
-      workingWeights.append(Array(copyWeights[0..<hiddenNodes]))
+      outputWeights.append(Array(copyWeights[0..<hiddenNodes]))
       copyWeights.removeSubrange(0..<hiddenNodes)
     }
+
+    workingWeights.append(outputWeights)
     
     brain.replaceWeights(weights: workingWeights)
   }
@@ -142,17 +139,17 @@ class GameBrainManager: ObservableObject {
                       epochs: 200,
                       lossFunction: .crossEntropy,
                       lossThreshold: 0.001,
-                      initializer: .xavierNormal)
+                      initializer: .heNormal)
     
-    brain.add(.init(nodes: self.inputs, bias: bias)) //input layer
+    
+    brain.addInputs(self.inputs)
     
     for _ in 0..<numOfHiddenLayers {
-      brain.add(.init(nodes: self.hiddenNodes, activation: .reLu, bias: bias)) //hidden layer
+      brain.add(LobeModel(nodes: self.hiddenNodes, activation: .leakyRelu, bias: bias))//hidden layer
     }
     
-    brain.add(.init(nodes: self.outputs, activation: .reLu, bias: bias)) //output layer
-    brain.add(optimizer: .adam())
-    brain.add(modifier: .softmax)
+    brain.add(LobeModel(nodes: self.outputs, activation: .sigmoid, bias: bias))//hidden layer
+   // brain.add(optimizer: .adam())
     
     brain.logLevel = .none
     
@@ -224,8 +221,9 @@ class GameBrainManager: ObservableObject {
       let brain = brains[i]
       let results = brain.feed(input: inputs)
       //only one output
-      if let argmax = results.max(), let index = results.firstIndex(of: argmax) {
-        if index == 0 {
+      if let first = results.first {
+        //if the brain is 70% sure then jump
+        if first > 0.5 {
           self.delegate?.jump(index: i)
         }
       }
