@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wvabrinskas/Logger.git",
       "state" : {
-        "revision" : "0eec8aa2278ee03954226bc1a3173038888e79b3",
-        "version" : "1.0.6"
+        "revision" : "72e4516de6c671d00588031098438a933ee0d370",
+        "version" : "1.0.7"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:wvabrinskas/Neuron.git",
       "state" : {
-        "revision" : "a78149fc4fe0200e719222ee60471f5104adcc0f",
-        "version" : "1.6.0"
+        "branch" : "weight-export-import",
+        "revision" : "b8329d10425cf7e75274cc19d654fee88fb830d7"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wvabrinskas/NumSwift.git",
       "state" : {
-        "revision" : "79c594883ce226df6c784a825a45ac033c648dac",
-        "version" : "1.1.0"
+        "revision" : "cd767284b4109a1246d62c5254c9db26657b11bd",
+        "version" : "2.0.9"
       }
     }
   ],

@@ -9,6 +9,7 @@ import Foundation
 import Neuron
 import Genetic
 import Combine
+import NumSwift
 
 public struct Stat<T> {
   public var label: String
@@ -25,12 +26,11 @@ class GameBrainManager: ObservableObject {
   private let rankingExponent = 2.0
   private let inputs = 4
   private let hiddenNodes = 3
-  private let outputs = 1
-  private let numOfHiddenLayers = 1
   private let numberOfChildren = 200
-  private var brains: [Brain] = []
+  private var brains: [Sequential] = []
   private var gameDoneCancellable: AnyCancellable?
   private var gameOver: Bool = false
+  private var networkShape: [[Int]] = []
   public weak var delegate: GameBrainManagerDelegate?
   @Published public var stats: [Stat<Float>] = []
   
@@ -49,15 +49,16 @@ class GameBrainManager: ObservableObject {
       let player = self.state.players[index]
       
       //let result: Double = Double(player.score) * (1 + (Double(player.wallet) / 20))
-      let result: Double = Double(player.score) + (Double(player.wallet) * 0.5)
+      let result: Double = Double(player.score) - (Double(player.numOfJumps) * 0.2) // + Double(player.wallet)
 
       let powerResult = pow(result, self.rankingExponent)
       
       return powerResult
     }
     
-    gene.mutationFunction = { () -> Float in
-      return Float.random(in: -1...1)
+    gene.mutationFunction = { [weak self] () -> Float in
+      guard let self else { return 0 }
+      return InitializerType.xavierUniform.build().calculate(input: inputs, out: hiddenNodes)
     }
     
     var initialPop: [[Float]] = []
@@ -89,73 +90,74 @@ class GameBrainManager: ObservableObject {
     self.state.setPlayers(num: numberOfChildren)
   }
   
-  private func flattenedWeights(_ brain: Brain) -> [Float] {
-    let weights = brain.weights().flatMap { $0.flatMap { $0 }}
-    return weights
+  private func flattenedWeights(_ network: Sequential) -> [Tensor.Scalar] {
+    
+    do {
+      let weights: [[Tensor.Scalar]] = try network.exportWeights().flatMap { $0 }.compactMap { $0.value.fullFlatten() }
+      return weights.flatten()
+    } catch {
+      print(error.localizedDescription)
+    }
+
+    return []
   }
   
-  private func replace(_ weights: [Float], for brain: Brain) {
-    var copyWeights = weights
-    var workingWeights: [[[Float]]] = []
+  private func replace(_ weights: [Tensor.Scalar], for network: Sequential) {
+    var newWeights: [[Tensor]] = []
+    var layer: Int = 0
+    var lastTotal: Int = 0
     
-    var inputWeights: [[Float]] = []
-    
-    for i in 0..<inputs {
-      inputWeights.append([copyWeights[i]])
-      copyWeights.remove(at: i)
-    }
-    workingWeights.append(inputWeights)
-    
-    for i in 0..<numOfHiddenLayers {
-      var hiddenWeights: [[Float]] = []
-
-      for _ in 0..<hiddenNodes {
-        if i > 0 {
-          hiddenWeights.append(Array(copyWeights[0..<hiddenNodes]))
-          copyWeights.removeSubrange(0..<hiddenNodes)
+    if let flatNetwork: [Tensor] = try? network.exportWeights().fullFlatten() { // we full flatten because Dense only has one dimension
+      
+      flatNetwork.forEach { t in
+        let shape = t.shape
+        if shape == [0] { // this means we have an activation layer
+          newWeights.append([Tensor()])
         } else {
-          hiddenWeights.append(Array(copyWeights[0..<inputs]))
-          copyWeights.removeSubrange(0..<inputs)
+          let total = shape[safe: 0, 0] * shape[safe: 1, 0]
+          let offset = (lastTotal * layer)
+          let flatWeights = Array(weights[offset..<(offset + total)])
+          
+          let reshapedWeights = flatWeights.reshape(columns: shape[safe: 0, 1])
+          let weightTensor = Tensor(reshapedWeights)
+          newWeights.append([weightTensor])
+          
+          lastTotal = total
+          layer += 1
         }
       }
       workingWeights.append(hiddenWeights)
     }
     
-    var outputWeights: [[Float]] = []
-    for _ in 0..<outputs {
-      outputWeights.append(Array(copyWeights[0..<hiddenNodes]))
-      copyWeights.removeSubrange(0..<hiddenNodes)
+    do {
+      try network.importWeights(newWeights)
+    } catch {
+      print(error.localizedDescription)
     }
-
-    workingWeights.append(outputWeights)
-    
-    brain.replaceWeights(weights: workingWeights)
   }
   
-  private func getBrain() -> Brain {
-    let bias: Float = 0.01
+  private func getBrain() -> Sequential {
     
-    let brain = Brain(learningRate: 0,
-                      epochs: 200,
-                      lossFunction: .crossEntropy,
-                      lossThreshold: 0.001,
-                      initializer: .heNormal)
+    let network = Sequential {[
+      Dense(hiddenNodes,
+            inputs: inputs,
+            biasEnabled: false),
+      LeakyReLu(),
+      Dense(hiddenNodes,
+            inputs: inputs,
+            biasEnabled: false),
+      LeakyReLu(),
+      Dense(1),
+      Sigmoid()
+    ]}
     
+    network.compile()
     
-    brain.addInputs(self.inputs)
-    
-    for _ in 0..<numOfHiddenLayers {
-      brain.add(LobeModel(nodes: self.hiddenNodes, activation: .leakyRelu, bias: bias))//hidden layer
+    if networkShape.isEmpty, let flatNetwork: [Tensor] = try? network.exportWeights().fullFlatten() {
+      networkShape = flatNetwork.map { $0.shape }
     }
     
-    brain.add(LobeModel(nodes: self.outputs, activation: .sigmoid, bias: bias))//hidden layer
-   // brain.add(optimizer: .adam())
-    
-    brain.logLevel = .none
-    
-    brain.compile()
-    
-    return brain
+    return network
   }
   
   private func publishStats(_ stats: [Float]) {
@@ -219,13 +221,12 @@ class GameBrainManager: ObservableObject {
       self.publishStats(inputs)
       
       let brain = brains[i]
-      let results = brain.feed(input: inputs)
+      let results = brain(Tensor(inputs))
       //only one output
-      if let first = results.first {
-        //if the brain is 70% sure then jump
-        if first > 0.5 {
-          self.delegate?.jump(index: i)
-        }
+      let output = results.asScalar()
+      
+      if output >= 0.9 {
+        self.delegate?.jump(index: i)
       }
     }
   }
