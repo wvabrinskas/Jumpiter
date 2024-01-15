@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		912297A925F996FD00BE5DCD /* GameBrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912297A825F996FD00BE5DCD /* GameBrainManager.swift */; };
 		916164892601780C009E240F /* obstacle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 916164882601780C009E240F /* obstacle.atlas */; };
+		918C7AA32B54CFE4003F6BB3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918C7AA22B54CFE4003F6BB3 /* Extensions.swift */; };
 		918D014C26471C0300D9620A /* Moveable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918D014B26471C0300D9620A /* Moveable.swift */; };
 		918D014F26472C7900D9620A /* magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = 918D014D26472C7900D9620A /* magic.sks */; };
 		918D015026472C7900D9620A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918D014E26472C7900D9620A /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 /* Begin PBXFileReference section */
 		912297A825F996FD00BE5DCD /* GameBrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBrainManager.swift; sourceTree = "<group>"; };
 		916164882601780C009E240F /* obstacle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacle.atlas; sourceTree = "<group>"; };
+		918C7AA22B54CFE4003F6BB3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		918D014B26471C0300D9620A /* Moveable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moveable.swift; sourceTree = "<group>"; };
 		918D014D26472C7900D9620A /* magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = magic.sks; sourceTree = "<group>"; };
 		918D014E26472C7900D9620A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				91B65F4F26181A0C00024237 /* HitTester.swift */,
 				918D014B26471C0300D9620A /* Moveable.swift */,
 				918D015126472CE800D9620A /* Emitter.swift */,
+				918C7AA22B54CFE4003F6BB3 /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -289,8 +292,9 @@
 		91AC4D3A25F807F000295955 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					91AC4D4125F807F000295955 = {
 						CreatedOnToolsVersion = 12.4;
@@ -381,6 +385,7 @@
 				91AC4D9825F813A900295955 /* LevelManager.swift in Sources */,
 				91B65F4A2618169800024237 /* Coin.swift in Sources */,
 				918D0154264A0AE800D9620A /* DevWindowController.swift in Sources */,
+				918C7AA32B54CFE4003F6BB3 /* Extensions.swift in Sources */,
 				91B65F5026181A0C00024237 /* HitTester.swift in Sources */,
 				91AC4D9025F80CB900295955 /* PhysicsManager.swift in Sources */,
 			);
@@ -463,9 +468,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -524,9 +531,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -552,6 +561,7 @@
 				CODE_SIGN_ENTITLEMENTS = Jumpiter/Jumpiter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 24H8222GR4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Jumpiter/Info.plist;
@@ -573,6 +583,7 @@
 				CODE_SIGN_ENTITLEMENTS = Jumpiter/Jumpiter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 24H8222GR4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Jumpiter/Info.plist;
@@ -593,6 +604,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 24H8222GR4;
 				INFOPLIST_FILE = JumpiterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -615,6 +627,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 24H8222GR4;
 				INFOPLIST_FILE = JumpiterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -636,6 +649,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 24H8222GR4;
 				INFOPLIST_FILE = JumpiterUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -656,6 +670,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 24H8222GR4;
 				INFOPLIST_FILE = JumpiterUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -716,8 +731,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:wvabrinskas/Neuron.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.4;
+				branch = "weight-export-import";
+				kind = branch;
 			};
 		};
 		91AC4D8025F80A0400295955 /* XCRemoteSwiftPackageReference "Genetic" */ = {
