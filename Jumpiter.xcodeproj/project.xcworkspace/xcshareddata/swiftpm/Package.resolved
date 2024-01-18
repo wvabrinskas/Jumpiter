@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:wvabrinskas/Neuron.git",
       "state" : {
-        "branch" : "weight-export-import",
-        "revision" : "b8329d10425cf7e75274cc19d654fee88fb830d7"
+        "branch" : "develop",
+        "revision" : "0a185125a7dcda1e6b863186bc38f038a2ce2c49"
       }
     },
     {
